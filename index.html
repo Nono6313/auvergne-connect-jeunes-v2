@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <title>Auvergn' Connect Jeunes</title>
+
+  <!-- Favicon -->
+  <link
+    rel="icon"
+    type="image/png"
+    href="logo.png"
+  >
+
+  <meta
+    name="description"
+    content="Auvergn' Connect Jeunes — créé par et pour les jeunes."
+  >
+
+  <style>
+
+    :root {
+      --violet: #8444B1;
+      --green: #8DBB52;
+      --night: #0A0927;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 22px;
+
+      font-family: Arial, sans-serif;
+      color: #fff;
+
+      background:
+        #0A0927
+        url("background.png")
+        center / cover
+        fixed
+        no-repeat;
+    }
+
+    body::before {
+      content: "";
+
+      position: fixed;
+      inset: 0;
+
+      background:
+        linear-gradient(
+          180deg,
+          #0a092733,
+          #0a0927a8
+        );
+
+      pointer-events: none;
+    }
+
+    .card {
+      position: relative;
+
+      width: min(100%, 390px);
+
+      padding: 34px 28px 28px;
+
+      border: 1px solid #ffffff55;
+      border-radius: 28px;
+
+      background: #ffffff20;
+
+      backdrop-filter: blur(18px);
+
+      box-shadow:
+        0 25px 70px #0007;
+
+      text-align: center;
+    }
+
+    .logo {
+      width: 120px;
+      height: 120px;
+
+      margin: 0 auto 18px;
+
+      border-radius: 50%;
+
+      overflow: hidden;
+
+      box-shadow:
+        0 12px 35px #0008;
+
+      background: #0A0927;
+    }
+
+    .logo img {
+      width: 100%;
+      height: 100%;
+
+      display: block;
+
+      object-fit: contain;
+    }
+
+    h1 {
+      margin: 0;
+
+      font-size: 26px;
+
+      letter-spacing: -0.7px;
+    }
+
+    .subtitle {
+      margin: 7px 0 8px;
+
+      font-size: 15px;
+
+      font-weight: 700;
+    }
+
+    .tagline {
+      margin: 0 auto 26px;
+
+      max-width: 310px;
+
+      color: #eee;
+
+      line-height: 1.45;
+
+      font-size: 14px;
+    }
+
+    .links {
+      display: grid;
+
+      gap: 12px;
+    }
+
+    .links a {
+      display: block;
+
+      padding: 15px 18px;
+
+      border-radius: 12px;
+
+      background: #0A0927EF;
+
+      color: #fff;
+
+      text-decoration: none;
+
+      font-weight: 800;
+
+      box-shadow:
+        0 7px 18px #0005;
+
+      transition: 0.18s;
+    }
+
+    .links a:hover {
+      transform: translateY(-2px);
+
+      background: var(--violet);
+    }
+
+    .links a.secondary {
+      background: #fff;
+
+      color: var(--night);
+    }
+
+    .links a.secondary:hover {
+      background: var(--green);
+
+      color: #fff;
+    }
+
+    footer {
+      margin-top: 25px;
+
+      font-size: 12px;
+
+      color: #ddd;
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+  <main class="card">
+
+    <!-- Logo -->
+    <div class="logo">
+
+      <img
+        src="logo.png"
+        alt="Logo Auvergn' Connect Jeunes"
+      >
+
+    </div>
+
+
+    <!-- Nom -->
+    <h1>
+      Auvergn' Connect Jeunes
+    </h1>
+
+
+    <!-- Slogan -->
+    <p class="subtitle">
+      Créé par et pour les jeunes
+    </p>
+
+
+    <!-- Description -->
+    <p class="tagline">
+      Donner la parole aux jeunes, valoriser leurs initiatives
+      et partager leurs projets en Auvergne.
+    </p>
+
+
+    <!-- Réseaux sociaux -->
+    <nav
+      class="links"
+      aria-label="Réseaux sociaux"
+    >
+
+      <a
+        href="https://www.instagram.com/auvergn_connect_jeunes/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Instagram
+      </a>
+
+
+      <a
+        href="https://www.tiktok.com/@auvergn_connect_jeunes"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        TikTok
+      </a>
+
+
+      <a
+        href="https://www.youtube.com/@auvergn_connect_Jeune"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        YouTube
+      </a>
+
+
+      <!-- Contact -->
+      <a
+        class="secondary"
+        href="https://mail.google.com/mail/?view=cm&fs=1&to=contact%40auvergneconnectjeunes.fr"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Nous contacter
+      </a>
+
+    </nav>
+
+
+    <!-- Copyright -->
+    <footer>
+      © Auvergn' Connect Jeunes
+    </footer>
+
+  </main>
+
+</body>
+
+</html>
