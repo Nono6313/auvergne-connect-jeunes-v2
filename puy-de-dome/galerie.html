@@ -1,0 +1,665 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0A0927">
+  <title>Galerie | ACJ Puy-de-Dôme</title>
+  <meta name="description" content="Photos, vidéos et moments forts capturés par Auvergn' Connect Jeunes.">
+  <link rel="icon" href="images/logo.png">
+  <link rel="stylesheet" href="css/puy-de-dome.css">
+
+  <style>
+    .gallery-hero {
+      position: relative;
+      overflow: hidden;
+      padding: 34px 20px 38px;
+      text-align: center;
+      background:
+        radial-gradient(ellipse at 12% 0%, #8444b144, transparent 55%),
+        radial-gradient(ellipse at 90% 30%, #8dbb5212, transparent 45%),
+        linear-gradient(115deg, #17102e, #171b2d);
+    }
+
+    .gallery-hero::after {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background-image:
+        radial-gradient(circle at 18% 20%, #8444b180 1px, transparent 2px),
+        radial-gradient(circle at 80% 12%, #8dbb5280 1px, transparent 2px),
+        radial-gradient(circle at 91% 76%, #8444b180 1px, transparent 2px);
+      content: "";
+      pointer-events: none;
+    }
+
+    .gallery-hero > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .gallery-hero h1 {
+      margin: 14px 0;
+      color: #f8f7ff;
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 900;
+      letter-spacing: -.055em;
+      line-height: 1.1;
+    }
+
+    .gallery-hero h1 span { color: #8DBB52; }
+
+    .gallery-hero p {
+      margin: 0;
+      color: #b5b0cc;
+      font-size: 1rem;
+    }
+
+    .gallery-shell {
+      width: min(1180px, calc(100% - 36px));
+      margin: 0 auto;
+      padding: 0 0 80px;
+    }
+
+    .gallery-filters {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      padding: 0;
+      margin: 0 0 28px;
+      transform: translateY(0);
+    }
+
+    .gallery-filter {
+      padding: 9px 16px;
+      border: 1px solid #8444b180;
+      border-radius: 12px;
+      background: #100d2b;
+      color: #d9d3f0;
+      font-size: .76rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: background .2s, color .2s, transform .2s;
+    }
+
+    .gallery-filter:hover { transform: translateY(-2px); }
+
+    .gallery-filter.active {
+      border-color: #8DBB52;
+      background: #8DBB52;
+      color: #0a0927;
+      box-shadow: 0 5px 22px #8dbb5230;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+      align-items: start;
+    }
+
+    .gallery-card {
+      min-width: 0;
+      padding: 0;
+      overflow: hidden;
+      border: 1px solid #8444b135;
+      border-radius: 13px;
+      background: transparent;
+      color: #f8f7ff;
+      text-align: center;
+      cursor: pointer;
+      transition: transform .22s, border-color .22s, box-shadow .22s;
+    }
+
+    .gallery-card:hover,
+    .gallery-card:focus-visible {
+      transform: translateY(-4px);
+      border-color: #8DBB52;
+      box-shadow: 0 12px 30px #0003;
+      outline: none;
+    }
+
+    .gallery-card[hidden] { display: none; }
+
+    .gallery-card-image {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: #171331;
+    }
+
+    .gallery-card-image img,
+    .gallery-card-image video {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .35s;
+    }
+
+    .gallery-card:hover .gallery-card-image img {
+      transform: scale(1.035);
+    }
+
+    .gallery-card-caption {
+      padding: 13px 10px 14px;
+    }
+
+    .gallery-card-caption h2 {
+      margin: 0;
+      color: #f8f7ff;
+      font-size: .98rem;
+      font-weight: 850;
+      line-height: 1.4;
+    }
+
+    .gallery-card-caption p {
+      margin: 5px 0 0;
+      color: #9993b3;
+      font-size: .8rem;
+    }
+
+    .gallery-empty {
+      grid-column: 1 / -1;
+      padding: 35px 20px;
+      border: 1px dashed #8444b180;
+      border-radius: 16px;
+      color: #b5b0cc;
+      text-align: center;
+    }
+
+    /* Affichage grand format au clic */
+    .lightbox[hidden] { display: none !important; }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      overflow-y: auto;
+      background: #08071bf5;
+      backdrop-filter: blur(8px);
+    }
+
+    .lightbox-content {
+      width: min(1100px, 100%);
+      margin: auto;
+      text-align: center;
+      animation: galleryAppear .2s ease-out;
+    }
+
+    @keyframes galleryAppear {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .lightbox-image-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100px;
+    }
+
+    .lightbox-image {
+      display: block;
+      max-width: 100%;
+      max-height: 72vh;
+      margin: auto;
+      border-radius: 10px;
+      object-fit: contain;
+      box-shadow: 0 20px 70px #0005;
+    }
+
+    .lightbox-video {
+      display: block;
+      width: min(100%, 1000px);
+      max-height: 72vh;
+      margin: auto;
+      border-radius: 10px;
+      background: #000;
+    }
+
+    .lightbox-title {
+      margin: 16px 0 0;
+      color: #f8f7ff;
+      font-size: 1.05rem;
+      font-weight: 900;
+    }
+
+    .lightbox-credit {
+      margin: 5px 0 10px;
+      color: #9993b3;
+      font-size: .82rem;
+    }
+
+    .lightbox-close,
+    .lightbox-arrow {
+      position: fixed;
+      z-index: 2;
+      display: grid;
+      place-items: center;
+      border: 1px solid #ffffff30;
+      background: #171331eF;
+      color: white;
+      cursor: pointer;
+      transition: background .2s, transform .2s;
+    }
+
+    .lightbox-close:hover,
+    .lightbox-arrow:hover {
+      background: #8444b1;
+      transform: scale(1.06);
+    }
+
+    .lightbox-close {
+      top: 20px;
+      right: 22px;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      font-size: 1.8rem;
+    }
+
+    .lightbox-arrow {
+      top: 45%;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      font-size: 1.5rem;
+    }
+
+    .lightbox-prev { left: 18px; }
+    .lightbox-next { right: 18px; }
+
+    .lightbox-count {
+      margin-top: 10px;
+      color: #8DBB52;
+      font-size: .78rem;
+      font-weight: 800;
+    }
+
+    @media (max-width: 850px) {
+      .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .lightbox { padding: 65px 20px 25px; }
+      .lightbox-arrow { top: 35%; }
+      .lightbox-prev { left: 8px; }
+      .lightbox-next { right: 8px; }
+    }
+
+    @media (max-width: 520px) {
+      .gallery-shell { width: calc(100% - 24px); }
+      .gallery-grid { grid-template-columns: 1fr; gap: 20px; }
+      .gallery-hero { padding: 32px 15px; }
+      .gallery-filters { gap: 6px; }
+      .gallery-filter { padding: 9px 12px; }
+      .lightbox-image { max-height: 60vh; }
+      .lightbox-arrow { top: auto; bottom: 20px; }
+      .lightbox-prev { left: calc(50% - 55px); }
+      .lightbox-next { right: calc(50% - 55px); }
+      .lightbox-count { margin-bottom: 55px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<a class="skip-link" href="#contenu">Aller au contenu</a>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html" aria-label="Accueil ACJ Puy-de-Dôme">
+      <img src="images/logo.png" alt="Logo Auvergn' Connect Jeunes">
+      <span class="brand-text">
+        <strong>ACJ</strong>
+        <small>ÉDITION PUY-DE-DÔME</small>
+      </span>
+    </a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">
+      <span></span><span></span><span></span>
+      <span class="sr-only">Ouvrir le menu</span>
+    </button>
+    <nav class="main-nav" id="main-nav" aria-label="Navigation principale">
+      <a href="index.html">Accueil</a>
+      <a href="editions.html">Nos éditions</a>
+      <a href="concept.html">Le concept</a>
+      <a href="membres.html">Les membres</a>
+      <a class="active" href="galerie.html">Galerie</a>
+      <a href="partenaires.html">Partenaires</a>
+      <a href="inscription.html">Nous rejoindre</a>
+      <a href="../contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="contenu">
+  <section class="gallery-hero">
+    <span class="eyebrow">▧ &nbsp; EN IMAGES</span>
+    <h1>LA <span>GALERIE</span></h1>
+    <p>Photos, vidéos et moments forts capturés par ACJ.</p>
+  </section>
+
+  <section class="gallery-shell">
+    <div class="gallery-filters" role="group" aria-label="Filtrer la galerie">
+      <button class="gallery-filter active" type="button" data-filter="all" aria-pressed="true">TOUT</button>
+      <button class="gallery-filter" type="button" data-filter="photo" aria-pressed="false">PHOTO</button>
+      <button class="gallery-filter" type="button" data-filter="video" aria-pressed="false">VIDÉO</button>
+      <button class="gallery-filter" type="button" data-filter="reportage" aria-pressed="false">REPORTAGE</button>
+    </div>
+
+    <div class="gallery-grid" id="gallery-grid">
+      <!--
+        Pour ajouter une photo :
+        1. Place le fichier dans images/galerie/
+        2. Remplace le nom du fichier ci-dessous.
+        3. Modifie le titre, le crédit et la catégorie.
+      -->
+      <button class="gallery-card" type="button"
+        data-category="photo reportage"
+        data-type="image"
+        data-src="images/galerie/repas-fin-annee-2026.jpeg"
+        data-title="Repas de fin d'année 2026"
+        data-credit="© ACCUANA Antoine">
+        <span class="gallery-card-image">
+          <img src="images/galerie/repas-fin-annee-2026.jpeg"
+            alt="Repas de fin d'année 2026 avec l'équipe"
+            loading="lazy">
+        </span>
+        <span class="gallery-card-caption">
+          <h2>Repas de fin d'année 2026</h2>
+          <p>© ACCUANA Antoine</p>
+        </span>
+      </button>
+
+      <p class="gallery-empty" id="gallery-empty" hidden>
+        Aucun contenu dans cette catégorie pour le moment.
+      </p>
+    </div>
+  </section>
+</main>
+
+<!-- Visionneuse grand format -->
+<div class="lightbox" id="lightbox" hidden>
+  <button class="lightbox-close" id="lightbox-close" type="button" aria-label="Fermer">×</button>
+  <button class="lightbox-arrow lightbox-prev" id="lightbox-prev" type="button" aria-label="Contenu précédent">‹</button>
+  <button class="lightbox-arrow lightbox-next" id="lightbox-next" type="button" aria-label="Contenu suivant">›</button>
+
+  <div class="lightbox-content" role="dialog" aria-modal="true" aria-labelledby="lightbox-title">
+    <div class="lightbox-image-wrap" id="lightbox-media"></div>
+    <h2 class="lightbox-title" id="lightbox-title"></h2>
+    <p class="lightbox-credit" id="lightbox-credit"></p>
+    <div class="lightbox-count" id="lightbox-count"></div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-main">
+    <div class="footer-brand">
+      <a class="brand footer-brand-link" href="index.html">
+        <img src="images/logo.png" alt="Logo Auvergn' Connect Jeunes">
+        <span class="brand-text"><strong>ACJ</strong><small>ÉDITION PUY-DE-DÔME</small></span>
+      </a>
+      <p>Un média créé par et pour des jeunes.</p>
+    </div>
+    <div class="footer-column">
+      <h2>Explorer</h2>
+      <a href="concept.html">Le concept</a>
+      <a href="editions.html">Nos éditions</a>
+      <a href="galerie.html">Galerie photo</a>
+      <a href="partenaires.html">Partenaires</a>
+    </div>
+    <div class="footer-column">
+      <h2>Participer</h2>
+      <a href="membres.html">Les membres</a>
+      <a href="inscription.html">Nous rejoindre</a>
+      <a href="../contact.html">Nous contacter</a>
+    </div>
+    <div class="footer-column">
+      <h2>Suivre ACJ</h2>
+      <a href="https://www.instagram.com/auvergn_connect_jeunes/" target="_blank" rel="noopener noreferrer">Instagram ↗</a>
+      <a href="https://www.tiktok.com/@auvergn_connect_jeunes" target="_blank" rel="noopener noreferrer">TikTok ↗</a>
+      <a href="https://www.youtube.com/@auvergn_connect_Jeune" target="_blank" rel="noopener noreferrer">YouTube ↗</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© <span id="current-year"></span> Auvergn' Connect Jeunes</span>
+    <div class="footer-legal">
+      <a href="../mentions-legales.html">Mentions légales</a>
+      <a href="../confidentialite.html">Confidentialité</a>
+      <a href="../cookies.html">Cookies</a>
+      <button type="button" id="open-cookie-settings">Gérer mes cookies</button>
+    </div>
+  </div>
+</footer>
+
+<section class="cookie-banner" id="cookie-banner" hidden aria-label="Préférences de cookies">
+  <div class="cookie-banner-copy">
+    <strong>Vos préférences de confidentialité</strong>
+    <p>Ce site utilise le stockage local pour mémoriser vos choix. Les cookies non essentiels restent désactivés tant qu'ils ne sont pas acceptés.</p>
+  </div>
+  <div class="cookie-banner-actions">
+    <button type="button" class="cookie-button cookie-accept" id="accept-cookies">Tout accepter</button>
+    <button type="button" class="cookie-button" id="refuse-cookies">Tout refuser</button>
+    <button type="button" class="cookie-button cookie-customize" id="customize-cookies">Personnaliser</button>
+  </div>
+</section>
+
+<div class="cookie-modal" id="cookie-modal" hidden>
+  <div class="cookie-modal-backdrop" data-close-cookie-modal></div>
+  <section class="cookie-modal-panel" role="dialog" aria-modal="true" aria-labelledby="cookie-modal-title">
+    <button class="cookie-close" type="button" id="close-cookie-modal" aria-label="Fermer">×</button>
+    <span class="eyebrow">VOS CHOIX</span>
+    <h2 id="cookie-modal-title">Paramètres de confidentialité</h2>
+    <p>Les cookies nécessaires au fonctionnement du site ne peuvent pas être désactivés. Les catégories facultatives sont désactivées par défaut.</p>
+    <div class="cookie-option">
+      <div><strong>Nécessaires</strong><small>Fonctionnement et mémorisation des préférences.</small></div>
+      <span class="cookie-always-on">Toujours actifs</span>
+    </div>
+    <label class="cookie-option" for="analytics-cookies">
+      <span><strong>Mesure d'audience</strong><small>Autoriser d'éventuels outils statistiques.</small></span>
+      <input type="checkbox" id="analytics-cookies">
+    </label>
+    <label class="cookie-option" for="marketing-cookies">
+      <span><strong>Contenus externes</strong><small>Autoriser d'éventuels contenus ou intégrations facultatifs.</small></span>
+      <input type="checkbox" id="marketing-cookies">
+    </label>
+    <div class="cookie-modal-actions">
+      <button type="button" class="cookie-button cookie-accept" id="save-cookie-settings">Enregistrer mes choix</button>
+      <button type="button" class="cookie-button" id="cancel-cookie-settings">Annuler</button>
+    </div>
+  </section>
+</div>
+
+<script src="js/puy-de-dome.js"></script>
+<script>
+(() => {
+  "use strict";
+
+  document.getElementById("current-year").textContent = new Date().getFullYear();
+
+  const grid = document.getElementById("gallery-grid");
+  const cards = [...grid.querySelectorAll(".gallery-card")];
+  const filters = [...document.querySelectorAll(".gallery-filter")];
+  const empty = document.getElementById("gallery-empty");
+
+  const lightbox = document.getElementById("lightbox");
+  const mediaBox = document.getElementById("lightbox-media");
+  const titleBox = document.getElementById("lightbox-title");
+  const creditBox = document.getElementById("lightbox-credit");
+  const countBox = document.getElementById("lightbox-count");
+  const closeButton = document.getElementById("lightbox-close");
+  const prevButton = document.getElementById("lightbox-prev");
+  const nextButton = document.getElementById("lightbox-next");
+
+  let visibleCards = cards.slice();
+  let currentIndex = 0;
+  let lastFocused = null;
+
+  function applyFilter(filter) {
+    filters.forEach(button => {
+      const active = button.dataset.filter === filter;
+      button.classList.toggle("active", active);
+      button.setAttribute("aria-pressed", String(active));
+    });
+
+    visibleCards = cards.filter(card => {
+      const categories = (card.dataset.category || "").split(/\s+/);
+      return filter === "all" || categories.includes(filter);
+    });
+
+    cards.forEach(card => {
+      card.hidden = !visibleCards.includes(card);
+    });
+
+    empty.hidden = visibleCards.length !== 0;
+  }
+
+  filters.forEach(button => {
+    button.addEventListener("click", () => applyFilter(button.dataset.filter));
+  });
+
+  function showItem(index) {
+    if (!visibleCards.length) return;
+
+    currentIndex = (index + visibleCards.length) % visibleCards.length;
+    const card = visibleCards[currentIndex];
+    const type = card.dataset.type || "image";
+    const src = card.dataset.src;
+    const title = card.dataset.title || "Galerie ACJ";
+    const credit = card.dataset.credit || "";
+
+    mediaBox.replaceChildren();
+
+    if (type === "video") {
+      const video = document.createElement("video");
+      video.className = "lightbox-video";
+      video.src = src;
+      video.controls = true;
+      video.autoplay = true;
+      video.playsInline = true;
+      mediaBox.appendChild(video);
+    } else {
+      const img = document.createElement("img");
+      img.className = "lightbox-image";
+      img.src = src;
+      img.alt = title;
+      mediaBox.appendChild(img);
+    }
+
+    titleBox.textContent = title;
+    creditBox.textContent = credit;
+    countBox.textContent = `${currentIndex + 1} / ${visibleCards.length}`;
+
+    prevButton.hidden = visibleCards.length < 2;
+    nextButton.hidden = visibleCards.length < 2;
+  }
+
+  function openLightbox(card) {
+    lastFocused = card;
+    const index = visibleCards.indexOf(card);
+    showItem(index >= 0 ? index : 0);
+    lightbox.hidden = false;
+    document.body.style.overflow = "hidden";
+    closeButton.focus();
+  }
+
+  function closeLightbox() {
+    const video = mediaBox.querySelector("video");
+    if (video) {
+      video.pause();
+      video.removeAttribute("src");
+      video.load();
+    }
+
+    lightbox.hidden = true;
+    mediaBox.replaceChildren();
+    document.body.style.overflow = "";
+    if (lastFocused) lastFocused.focus();
+  }
+
+  cards.forEach(card => {
+    card.addEventListener("click", () => openLightbox(card));
+    const img = card.querySelector("img");
+    if (img) {
+      img.addEventListener("error", () => {
+        img.alt = "Image introuvable : " + (card.dataset.title || "photo");
+      });
+    }
+  });
+
+  closeButton.addEventListener("click", closeLightbox);
+  prevButton.addEventListener("click", () => showItem(currentIndex - 1));
+  nextButton.addEventListener("click", () => showItem(currentIndex + 1));
+
+  lightbox.addEventListener("click", event => {
+    if (event.target === lightbox) closeLightbox();
+  });
+
+  document.addEventListener("keydown", event => {
+    if (lightbox.hidden) return;
+    if (event.key === "Escape") closeLightbox();
+    if (event.key === "ArrowLeft") showItem(currentIndex - 1);
+    if (event.key === "ArrowRight") showItem(currentIndex + 1);
+  });
+
+  applyFilter("all");
+
+  /* Gestion des préférences cookies */
+  (() => {
+    const key = "acj_puy_de_dome_cookie_preferences";
+    const banner = document.getElementById("cookie-banner");
+    const cookieModal = document.getElementById("cookie-modal");
+    const analytics = document.getElementById("analytics-cookies");
+    const marketing = document.getElementById("marketing-cookies");
+
+    function readPreferences() {
+      try { return JSON.parse(localStorage.getItem(key)); }
+      catch (_) { return null; }
+    }
+
+    function savePreferences(preferences) {
+      try {
+        localStorage.setItem(key, JSON.stringify({
+          necessary: true,
+          analytics: Boolean(preferences.analytics),
+          marketing: Boolean(preferences.marketing),
+          savedAt: new Date().toISOString()
+        }));
+      } catch (_) {}
+      banner.hidden = true;
+      cookieModal.hidden = true;
+    }
+
+    function openCookieModal() {
+      const preferences = readPreferences();
+      analytics.checked = Boolean(preferences && preferences.analytics);
+      marketing.checked = Boolean(preferences && preferences.marketing);
+      cookieModal.hidden = false;
+    }
+
+    document.getElementById("accept-cookies").addEventListener("click", () => savePreferences({analytics:true,marketing:true}));
+    document.getElementById("refuse-cookies").addEventListener("click", () => savePreferences({analytics:false,marketing:false}));
+    document.getElementById("customize-cookies").addEventListener("click", openCookieModal);
+    document.getElementById("open-cookie-settings").addEventListener("click", openCookieModal);
+    document.getElementById("close-cookie-modal").addEventListener("click", () => cookieModal.hidden = true);
+    document.getElementById("cancel-cookie-settings").addEventListener("click", () => cookieModal.hidden = true);
+    document.getElementById("save-cookie-settings").addEventListener("click", () => savePreferences({analytics:analytics.checked,marketing:marketing.checked}));
+    cookieModal.querySelector("[data-close-cookie-modal]").addEventListener("click", () => cookieModal.hidden = true);
+
+    if (!readPreferences()) banner.hidden = false;
+  })();
+})();
+</script>
+</body>
+</html>

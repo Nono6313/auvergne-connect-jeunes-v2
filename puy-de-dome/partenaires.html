@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0A0927">
+  <title>Nos partenaires | ACJ Puy-de-Dôme</title>
+  <meta name="description" content="Découvrez les partenaires d'Auvergn' Connect Jeunes et les possibilités de collaboration avec notre média jeunesse.">
+  <link rel="icon" href="images/logo.png">
+  <link rel="stylesheet" href="css/puy-de-dome.css">
+
+  <style>
+    .partners-hero {
+      position: relative;
+      overflow: hidden;
+      padding: 85px 22px 65px;
+      text-align: center;
+      background:
+        radial-gradient(ellipse at 15% 15%, #8444b135, transparent 45%),
+        radial-gradient(ellipse at 85% 80%, #8dbb5215, transparent 40%);
+    }
+
+    .partners-hero::after {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background: repeating-linear-gradient(
+        115deg,
+        transparent 0,
+        transparent 90px,
+        #ffffff04 91px,
+        transparent 92px
+      );
+      content: "";
+      pointer-events: none;
+    }
+
+    .partners-hero > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .partners-hero h1 {
+      margin: 22px 0 18px;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -.065em;
+    }
+
+    .partners-hero h1 span,
+    .partners-heading h2 span,
+    .partnership-cta h2 span {
+      color: var(--green, #8DBB52);
+    }
+
+    .partners-hero p {
+      max-width: 690px;
+      margin: 0 auto;
+      color: var(--muted, #b5b0cc);
+      font-size: 1.04rem;
+      line-height: 1.8;
+    }
+
+    .partners-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 9px 15px;
+      border: 1px solid #8444b15e;
+      border-radius: 999px;
+      background: #8444b114;
+      color: #c8a0e8;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    .partners-pill i {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #8DBB52;
+      box-shadow: 0 0 12px #8DBB52;
+    }
+
+    .partners-container {
+      width: min(1120px, calc(100% - 36px));
+      margin: 0 auto;
+      padding: 25px 0 80px;
+    }
+
+    .partners-heading {
+      margin: 20px 0 35px;
+      text-align: center;
+    }
+
+    .partners-heading h2 {
+      margin: 12px 0;
+      font-size: clamp(1.9rem, 4vw, 3rem);
+      letter-spacing: -.045em;
+    }
+
+    .partners-heading p {
+      max-width: 650px;
+      margin: 0 auto;
+      color: var(--muted, #b5b0cc);
+      line-height: 1.8;
+    }
+
+    .partners-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .partner-card {
+      position: relative;
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      overflow: hidden;
+      padding: 28px;
+      border: 1px solid #8444b14a;
+      border-radius: 24px;
+      background:
+        radial-gradient(ellipse at top right, #8444b118, transparent 60%),
+        linear-gradient(145deg, #151132, #0d0b26);
+      box-shadow: 0 18px 55px #0002;
+      transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+    }
+
+    .partner-card:hover {
+      transform: translateY(-5px);
+      border-color: #8444b1b5;
+      box-shadow: 0 22px 60px #8444b120;
+    }
+
+    .partner-card.featured {
+      border-color: #8dbb5266;
+      background:
+        radial-gradient(ellipse at 90% 0%, #8dbb521b, transparent 50%),
+        linear-gradient(145deg, #151132, #0d0b26);
+    }
+
+    .partner-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .partner-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 11px;
+      border: 1px solid #8dbb5245;
+      border-radius: 999px;
+      background: #8dbb5210;
+      color: #a8d878;
+      font-size: .7rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .partner-status::before {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #8DBB52;
+      content: "";
+    }
+
+    .partner-number {
+      color: #b5b0cc80;
+      font-size: .8rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+    }
+
+    .partner-logo-box {
+      display: flex;
+      min-height: 190px;
+      align-items: center;
+      justify-content: center;
+      padding: 25px;
+      border: 1px solid #ffffff12;
+      border-radius: 18px;
+      background: #08071d99;
+    }
+
+    .partner-logo-box img {
+      display: block;
+      max-width: 100%;
+      width: 240px;
+      max-height: 130px;
+      object-fit: contain;
+    }
+
+    .partner-logo-fallback {
+      display: none;
+      color: #f8f7ff;
+      font-size: 1.8rem;
+      font-weight: 900;
+      letter-spacing: -.04em;
+      text-align: center;
+    }
+
+    .partner-card h3 {
+      margin: 25px 0 10px;
+      color: #f8f7ff;
+      font-size: 1.6rem;
+      letter-spacing: -.035em;
+    }
+
+    .partner-card > p {
+      flex: 1;
+      margin: 0 0 23px;
+      color: var(--muted, #b5b0cc);
+      line-height: 1.8;
+    }
+
+    .partner-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .partner-tags span {
+      padding: 7px 10px;
+      border: 1px solid #8444b133;
+      border-radius: 8px;
+      background: #8444b110;
+      color: #d0b4e6;
+      font-size: .74rem;
+      font-weight: 700;
+    }
+
+    .partner-link {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 17px;
+      border: 1px solid #8dbb5266;
+      border-radius: 12px;
+      color: #a8d878;
+      font-weight: 800;
+      text-decoration: none;
+      transition: background .2s ease, color .2s ease;
+    }
+
+    .partner-link:hover {
+      background: #8dbb52;
+      color: #0a0927;
+    }
+
+    .partner-link span {
+      transition: transform .2s ease;
+    }
+
+    .partner-link:hover span {
+      transform: translate(3px, -3px);
+    }
+
+    .empty-partner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 390px;
+      padding: 30px;
+      border: 1px dashed #8444b166;
+      border-radius: 24px;
+      background: #8444b108;
+      text-align: center;
+    }
+
+    .empty-partner-icon {
+      display: grid;
+      width: 76px;
+      height: 76px;
+      place-items: center;
+      margin-bottom: 20px;
+      border: 1px solid #8dbb5266;
+      border-radius: 50%;
+      background: #8dbb5210;
+      color: #8DBB52;
+      font-size: 2rem;
+    }
+
+    .empty-partner h3 {
+      margin: 0 0 10px;
+      font-size: 1.35rem;
+    }
+
+    .empty-partner p {
+      max-width: 430px;
+      margin: 0;
+      color: var(--muted, #b5b0cc);
+      line-height: 1.8;
+    }
+
+    .benefits-section {
+      margin-top: 90px;
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 17px;
+    }
+
+    .benefit-card {
+      padding: 25px;
+      border: 1px solid #ffffff13;
+      border-radius: 19px;
+      background: linear-gradient(145deg, #151132, #0d0b26);
+      transition: transform .2s ease, border-color .2s ease;
+    }
+
+    .benefit-card:hover {
+      transform: translateY(-4px);
+      border-color: #8444b180;
+    }
+
+    .benefit-icon {
+      display: grid;
+      width: 49px;
+      height: 49px;
+      place-items: center;
+      margin-bottom: 20px;
+      border: 1px solid #8444b15c;
+      border-radius: 14px;
+      background: #8444b11c;
+      color: #c39ae5;
+      font-size: 1.35rem;
+    }
+
+    .benefit-card h3 {
+      margin: 0 0 10px;
+      color: #f8f7ff;
+      font-size: 1.08rem;
+    }
+
+    .benefit-card p {
+      margin: 0;
+      color: var(--muted, #b5b0cc);
+      font-size: .92rem;
+      line-height: 1.8;
+    }
+
+    .partnership-types {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    .partnership-type {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      padding: 19px;
+      border: 1px solid #ffffff14;
+      border-radius: 16px;
+      background: #ffffff05;
+    }
+
+    .partnership-type > span {
+      display: grid;
+      width: 39px;
+      height: 39px;
+      flex: 0 0 39px;
+      place-items: center;
+      border-radius: 12px;
+      background: #8dbb5218;
+      color: #8DBB52;
+      font-size: 1.1rem;
+    }
+
+    .partnership-type h3 {
+      margin: 0 0 6px;
+      color: #f8f7ff;
+      font-size: .98rem;
+    }
+
+    .partnership-type p {
+      margin: 0;
+      color: var(--muted, #b5b0cc);
+      font-size: .88rem;
+      line-height: 1.65;
+    }
+
+    .partnership-cta {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 35px;
+      overflow: hidden;
+      margin-top: 90px;
+      padding: clamp(28px, 5vw, 55px);
+      border: 1px solid #8444b166;
+      border-radius: 26px;
+      background:
+        radial-gradient(ellipse at 90% 50%, #8dbb5220, transparent 45%),
+        linear-gradient(120deg, #1a1238, #0d0b26);
+    }
+
+    .partnership-cta h2 {
+      margin: 13px 0;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      letter-spacing: -.045em;
+    }
+
+    .partnership-cta p {
+      max-width: 580px;
+      margin: 0;
+      color: var(--muted, #b5b0cc);
+      line-height: 1.8;
+    }
+
+    .partnership-cta-actions {
+      display: flex;
+      flex: 0 0 auto;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .partnership-cta-actions a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 19px;
+      border: 1px solid #8dbb52;
+      border-radius: 12px;
+      background: #8dbb52;
+      color: #0a0927;
+      font-weight: 850;
+      text-decoration: none;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .partnership-cta-actions a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px #8dbb5230;
+    }
+
+    .partnership-cta-actions a.secondary {
+      border-color: #8444b180;
+      background: #8444b114;
+      color: #e3d3f1;
+    }
+
+    .partnership-cta-actions a.secondary:hover {
+      background: #8444b12b;
+    }
+
+    .partners-note {
+      margin-top: 25px;
+      color: var(--muted, #b5b0cc);
+      font-size: .83rem;
+      line-height: 1.7;
+      text-align: center;
+    }
+
+    @media (max-width: 800px) {
+      .partners-grid,
+      .benefits-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .partnership-cta {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .partnership-cta-actions {
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .partners-hero {
+        padding: 58px 18px 45px;
+      }
+
+      .partners-container {
+        width: calc(100% - 26px);
+        padding-bottom: 55px;
+      }
+
+      .partners-grid,
+      .benefits-grid,
+      .partnership-types {
+        grid-template-columns: 1fr;
+      }
+
+      .partner-card {
+        padding: 19px;
+      }
+
+      .partner-logo-box {
+        min-height: 155px;
+      }
+
+      .benefits-section,
+      .partnership-cta {
+        margin-top: 60px;
+      }
+
+      .partnership-cta-actions {
+        flex-direction: column;
+      }
+
+      .partnership-cta-actions a {
+        width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html" aria-label="Accueil ACJ Puy-de-Dôme">
+        <img src="images/logo.png" alt="Logo Auvergn' Connect Jeunes">
+        <span class="brand-text">
+          <strong>ACJ</strong>
+          <small>ÉDITION PUY-DE-DÔME</small>
+        </span>
+      </a>
+
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">
+        <span></span><span></span><span></span>
+        <span class="sr-only">Ouvrir le menu</span>
+      </button>
+
+      <nav class="main-nav" id="main-nav" aria-label="Navigation principale">
+        <a href="index.html">Accueil</a>
+        <a href="editions.html">Nos éditions</a>
+        <a href="concept.html">Le concept</a>
+        <a href="membres.html">Les membres</a>
+        <a href="organigramme.html">Organigramme</a>
+        <a href="galerie.html">Galerie</a>
+        <a class="active" href="partenaires.html" aria-current="page">Partenaires</a>
+        <a href="inscription.html">Nous rejoindre</a>
+        <a href="../contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenu">
+    <section class="partner-strip" aria-label="Nos partenaires">
+      <div class="partner-track">
+        <a class="partner-logo" href="https://ontitouch.fr" target="_blank" rel="noopener noreferrer">
+          <img src="images/partenaires/ontitouch.png" alt="Logo Ontitouch">
+        </a>
+        <a class="partner-cta" href="../contact.html">
+          <span class="plus-icon" aria-hidden="true">+</span>
+          <span>
+            <strong>Devenir partenaire</strong>
+            <small>Construisons des projets ensemble</small>
+          </span>
+        </a>
+        <a class="partner-logo partner-repeat" href="https://ontitouch.fr" target="_blank" rel="noopener noreferrer" aria-hidden="true" tabindex="-1">
+          <img src="images/partenaires/ontitouch.png" alt="">
+        </a>
+        <a class="partner-cta partner-repeat" href="../contact.html" aria-hidden="true" tabindex="-1">
+          <span class="plus-icon" aria-hidden="true">+</span>
+          <span>
+            <strong>Devenir partenaire</strong>
+            <small>Construisons des projets ensemble</small>
+          </span>
+        </a>
+      </div>
+    </section>
+
+    <section class="partners-hero">
+      <span class="partners-pill"><i></i> L'ÉCOSYSTÈME ACJ</span>
+      <h1>Nos <span>partenaires.</span></h1>
+      <p>
+        Derrière chaque projet, il y a des rencontres et des personnes qui
+        nous font confiance. Découvrez les partenaires qui accompagnent
+        Auvergn' Connect Jeunes et ceux qui nous rejoindront demain.
+      </p>
+    </section>
+
+    <section class="partners-container">
+      <div class="partners-heading">
+        <span class="eyebrow">ILS NOUS ACCOMPAGNENT</span>
+        <h2>Ensemble, on va <span>plus loin.</span></h2>
+        <p>
+          Des collaborations qui permettent aux jeunes de découvrir,
+          de créer et de raconter les histoires de notre territoire.
+        </p>
+      </div>
+
+      <div class="partners-grid">
+        <article class="partner-card featured">
+          <div class="partner-card-top">
+            <span class="partner-status">Partenaire ACJ</span>
+            <span class="partner-number">01 / PARTENAIRE</span>
+          </div>
+
+          <a class="partner-logo-box" href="https://ontitouch.fr" target="_blank" rel="noopener noreferrer" aria-label="Découvrir le site d'Ontitouch">
+            <img
+              src="images/partenaires/ontitouch.png"
+              alt="Logo Ontitouch"
+              loading="lazy"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='block';"
+            >
+            <span class="partner-logo-fallback">ONTITOUCH</span>
+          </a>
+
+          <h3>Ontitouch</h3>
+          <p>
+            Ontitouch accompagne Auvergn' Connect Jeunes dans son aventure.
+            Cette collaboration contribue au développement de nos projets
+            et à la création de nouvelles opportunités pour les jeunes.
+          </p>
+
+          <div class="partner-tags">
+            <span>Collaboration</span>
+            <span>Engagement jeunesse</span>
+          </div>
+
+          <a class="partner-link" href="https://ontitouch.fr" target="_blank" rel="noopener noreferrer">
+            Découvrir Ontitouch <span aria-hidden="true">↗</span>
+          </a>
+        </article>
+
+        <article class="empty-partner">
+          <div class="empty-partner-icon" aria-hidden="true">+</div>
+          <h3>Et si c'était vous ?</h3>
+          <p>
+            Entreprises, associations, établissements et acteurs locaux :
+            rejoignez les partenaires d'ACJ et construisons ensemble
+            des projets utiles aux jeunes du territoire.
+          </p>
+          <a class="partner-link" style="margin-top:22px" href="../contact.html">
+            Parlons de votre projet <span aria-hidden="true">↗</span>
+          </a>
+        </article>
+      </div>
+
+      <section class="benefits-section">
+        <div class="partners-heading">
+          <span class="eyebrow">UN PARTENARIAT QUI A DU SENS</span>
+          <h2>Pourquoi rejoindre <span>ACJ ?</span></h2>
+          <p>
+            Soutenir un média jeunesse, c'est participer à une aventure
+            collective et donner aux jeunes la possibilité de s'exprimer.
+          </p>
+        </div>
+
+        <div class="benefits-grid">
+          <article class="benefit-card">
+            <div class="benefit-icon" aria-hidden="true">✦</div>
+            <h3>Visibilité locale</h3>
+            <p>
+              Faites découvrir votre structure à travers nos supports
+              de communication et nos projets, selon les modalités convenues.
+            </p>
+          </article>
+
+          <article class="benefit-card">
+            <div class="benefit-icon" aria-hidden="true">▶</div>
+            <h3>Projets audiovisuels</h3>
+            <p>
+              Imaginez des reportages, des interviews et des contenus
+              qui racontent vos initiatives et vos métiers.
+            </p>
+          </article>
+
+          <article class="benefit-card">
+            <div class="benefit-icon" aria-hidden="true">⌘</div>
+            <h3>Engagement jeunesse</h3>
+            <p>
+              Encouragez l'expression, la créativité et la participation
+              des jeunes à la vie de leur territoire.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="benefits-section">
+        <div class="partners-heading">
+          <span class="eyebrow">DES COLLABORATIONS SUR MESURE</span>
+          <h2>Plusieurs façons de <span>nous soutenir.</span></h2>
+          <p>
+            Chaque partenariat est discuté ensemble pour trouver une
+            collaboration adaptée aux possibilités de chacun.
+          </p>
+        </div>
+
+        <div class="partnership-types">
+          <article class="partnership-type">
+            <span aria-hidden="true">€</span>
+            <div>
+              <h3>Soutien financier</h3>
+              <p>Contribuez au financement des projets et aux besoins du média.</p>
+            </div>
+          </article>
+
+          <article class="partnership-type">
+            <span aria-hidden="true">▧</span>
+            <div>
+              <h3>Matériel et équipements</h3>
+              <p>Aidez-nous à disposer du matériel nécessaire à nos productions.</p>
+            </div>
+          </article>
+
+          <article class="partnership-type">
+            <span aria-hidden="true">⌖</span>
+            <div>
+              <h3>Accueil et accès aux lieux</h3>
+              <p>Facilitez les tournages, les visites et les rencontres sur le terrain.</p>
+            </div>
+          </article>
+
+          <article class="partnership-type">
+            <span aria-hidden="true">↗</span>
+            <div>
+              <h3>Projets communs</h3>
+              <p>Imaginons des reportages, des événements ou des actions ensemble.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="partnership-cta">
+        <div>
+          <span class="eyebrow">CONSTRUISONS LA SUITE ENSEMBLE</span>
+          <h2>Un projet en tête ?<br><span>Parlons-en.</span></h2>
+          <p>
+            Vous représentez une entreprise, une association ou un établissement ?
+            Contactez Auvergn' Connect Jeunes pour discuter de votre idée
+            et imaginer une collaboration.
+          </p>
+        </div>
+
+        <div class="partnership-cta-actions">
+          <a href="../contact.html">Nous contacter <span aria-hidden="true">↗</span></a>
+          <a class="secondary" href="concept.html">Découvrir ACJ <span aria-hidden="true">→</span></a>
+        </div>
+      </section>
+
+      <p class="partners-note">
+        Chaque partenariat fait l'objet d'un échange préalable afin de définir
+        ensemble les modalités de collaboration et de communication.
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <a class="brand footer-brand-link" href="index.html">
+          <img src="images/logo.png" alt="Logo Auvergn' Connect Jeunes">
+          <span class="brand-text">
+            <strong>ACJ</strong>
+            <small>ÉDITION PUY-DE-DÔME</small>
+          </span>
+        </a>
+        <p>Un média créé par et pour des jeunes.</p>
+      </div>
+
+      <div class="footer-column">
+        <h2>Explorer</h2>
+        <a href="concept.html">Le concept</a>
+        <a href="editions.html">Nos éditions</a>
+        <a href="galerie.html">Galerie photo</a>
+        <a href="partenaires.html">Partenaires</a>
+      </div>
+
+      <div class="footer-column">
+        <h2>Participer</h2>
+        <a href="membres.html">Les membres</a>
+        <a href="organigramme.html">Organigramme</a>
+        <a href="inscription.html">Nous rejoindre</a>
+        <a href="../contact.html">Nous contacter</a>
+      </div>
+
+      <div class="footer-column">
+        <h2>Suivre ACJ</h2>
+        <a href="https://www.instagram.com/auvergn_connect_jeunes/" target="_blank" rel="noopener noreferrer">Instagram ↗</a>
+        <a href="https://www.tiktok.com/@auvergn_connect_jeunes" target="_blank" rel="noopener noreferrer">TikTok ↗</a>
+        <a href="https://www.youtube.com/@auvergn_connect_Jeune" target="_blank" rel="noopener noreferrer">YouTube ↗</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© <span id="current-year"></span> Auvergn' Connect Jeunes</span>
+      <div class="footer-legal">
+        <a href="../mentions-legales.html">Mentions légales</a>
+        <a href="../confidentialite.html">Confidentialité</a>
+        <a href="../cookies.html">Cookies</a>
+        <button type="button" id="open-cookie-settings">Gérer mes cookies</button>
+      </div>
+    </div>
+  </footer>
+
+  <section class="cookie-banner" id="cookie-banner" hidden aria-label="Préférences de cookies">
+    <div class="cookie-banner-copy">
+      <strong>Vos préférences de confidentialité</strong>
+      <p>
+        Ce site utilise le stockage local pour mémoriser vos choix.
+        Les cookies non essentiels restent désactivés tant qu'ils ne sont pas acceptés.
+      </p>
+    </div>
+    <div class="cookie-banner-actions">
+      <button type="button" class="cookie-button cookie-accept" id="accept-cookies">Tout accepter</button>
+      <button type="button" class="cookie-button" id="refuse-cookies">Tout refuser</button>
+      <button type="button" class="cookie-button cookie-customize" id="customize-cookies">Personnaliser</button>
+    </div>
+  </section>
+
+  <div class="cookie-modal" id="cookie-modal" hidden>
+    <div class="cookie-modal-backdrop" data-close-cookie-modal></div>
+    <section class="cookie-modal-panel" role="dialog" aria-modal="true" aria-labelledby="cookie-modal-title">
+      <button class="cookie-close" type="button" id="close-cookie-modal" aria-label="Fermer">×</button>
+      <span class="eyebrow">VOS CHOIX</span>
+      <h2 id="cookie-modal-title">Paramètres de confidentialité</h2>
+      <p>
+        Les cookies nécessaires au fonctionnement du site ne peuvent pas être désactivés.
+        Les catégories facultatives sont désactivées par défaut.
+      </p>
+
+      <div class="cookie-option">
+        <div>
+          <strong>Nécessaires</strong>
+          <small>Fonctionnement et mémorisation des préférences.</small>
+        </div>
+        <span class="cookie-always-on">Toujours actifs</span>
+      </div>
+
+      <label class="cookie-option" for="analytics-cookies">
+        <span>
+          <strong>Mesure d'audience</strong>
+          <small>Autoriser d'éventuels outils statistiques.</small>
+        </span>
+        <input type="checkbox" id="analytics-cookies">
+      </label>
+
+      <label class="cookie-option" for="marketing-cookies">
+        <span>
+          <strong>Contenus externes</strong>
+          <small>Autoriser d'éventuels contenus ou intégrations facultatifs.</small>
+        </span>
+        <input type="checkbox" id="marketing-cookies">
+      </label>
+
+      <div class="cookie-modal-actions">
+        <button type="button" class="cookie-button cookie-accept" id="save-cookie-settings">Enregistrer mes choix</button>
+        <button type="button" class="cookie-button" id="cancel-cookie-settings">Annuler</button>
+      </div>
+    </section>
+  </div>
+
+  <script src="js/puy-de-dome.js"></script>
+  <script>
+    (() => {
+      "use strict";
+
+      document.getElementById("current-year").textContent =
+        new Date().getFullYear();
+
+      const key = "acj_puy_de_dome_cookie_preferences";
+      const banner = document.getElementById("cookie-banner");
+      const cookieModal = document.getElementById("cookie-modal");
+      const analytics = document.getElementById("analytics-cookies");
+      const marketing = document.getElementById("marketing-cookies");
+
+      function readPreferences() {
+        try {
+          return JSON.parse(localStorage.getItem(key));
+        } catch (_) {
+          return null;
+        }
+      }
+
+      function savePreferences(preferences) {
+        try {
+          localStorage.setItem(key, JSON.stringify({
+            necessary: true,
+            analytics: Boolean(preferences.analytics),
+            marketing: Boolean(preferences.marketing),
+            savedAt: new Date().toISOString()
+          }));
+        } catch (error) {
+          console.warn("Impossible d'enregistrer les préférences.", error);
+        }
+
+        banner.hidden = true;
+        cookieModal.hidden = true;
+      }
+
+      function openCookieModal() {
+        const preferences = readPreferences();
+        analytics.checked = Boolean(preferences && preferences.analytics);
+        marketing.checked = Boolean(preferences && preferences.marketing);
+        cookieModal.hidden = false;
+      }
+
+      document.getElementById("accept-cookies").addEventListener("click", () => {
+        savePreferences({ analytics: true, marketing: true });
+      });
+
+      document.getElementById("refuse-cookies").addEventListener("click", () => {
+        savePreferences({ analytics: false, marketing: false });
+      });
+
+      document.getElementById("customize-cookies").addEventListener("click", openCookieModal);
+      document.getElementById("open-cookie-settings").addEventListener("click", openCookieModal);
+
+      document.getElementById("close-cookie-modal").addEventListener("click", () => {
+        cookieModal.hidden = true;
+      });
+
+      document.getElementById("cancel-cookie-settings").addEventListener("click", () => {
+        cookieModal.hidden = true;
+      });
+
+      document.getElementById("save-cookie-settings").addEventListener("click", () => {
+        savePreferences({
+          analytics: analytics.checked,
+          marketing: marketing.checked
+        });
+      });
+
+      cookieModal.querySelector("[data-close-cookie-modal]").addEventListener("click", () => {
+        cookieModal.hidden = true;
+      });
+
+      document.addEventListener("keydown", event => {
+        if (event.key === "Escape" && !cookieModal.hidden) {
+          cookieModal.hidden = true;
+        }
+      });
+
+      if (!readPreferences()) {
+        banner.hidden = false;
+      }
+    })();
+  </script>
+</body>
+</html>

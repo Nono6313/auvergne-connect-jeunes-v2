@@ -1,0 +1,904 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0A0927">
+  <title>L'équipe ACJ | Auvergn' Connect Jeunes</title>
+  <meta name="description" content="Découvre les membres et l'équipe d'Auvergn' Connect Jeunes.">
+
+  <link rel="icon" href="images/logo.png">
+  <link rel="stylesheet" href="css/puy-de-dome.css">
+
+  <style>
+    :root {
+      --night: #0A0927;
+      --panel: #171033;
+      --panel-light: #21133e;
+      --purple: #8444B1;
+      --purple-border: #48256b;
+      --green: #8DBB52;
+      --white: #fff;
+      --muted: #bcb5d3;
+    }
+
+    .members-page {
+      min-height: 100vh;
+      background: var(--night);
+      color: var(--white);
+    }
+
+    .members-page *,
+    .members-page *::before,
+    .members-page *::after {
+      box-sizing: border-box;
+    }
+
+    .members-container {
+      width: min(1280px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    /* TITRE */
+
+    .members-heading {
+      position: relative;
+      overflow: hidden;
+      padding: 66px 0 36px;
+      text-align: center;
+      background:
+        radial-gradient(ellipse at 20% 0%, rgba(132,68,177,.2), transparent 48%),
+        radial-gradient(ellipse at 90% 10%, rgba(141,187,82,.07), transparent 35%);
+    }
+
+    .members-heading h1 {
+      margin: 0;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 900;
+      letter-spacing: -.045em;
+      line-height: 1.1;
+    }
+
+    .members-heading h1 span {
+      color: var(--green);
+    }
+
+    .members-heading p {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 1.03rem;
+    }
+
+    .members-eyebrow {
+      display: inline-block;
+      margin-bottom: 12px;
+      color: var(--green);
+      font-size: .75rem;
+      font-weight: 900;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    /* FILTRES */
+
+    .members-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 9px;
+      padding: 24px 0 40px;
+    }
+
+    .filter-button {
+      padding: 10px 15px;
+      border: 1px solid var(--purple-border);
+      border-radius: 13px;
+      background: rgba(132,68,177,.08);
+      color: #d9d1ea;
+      font-family: inherit;
+      font-size: .75rem;
+      font-weight: 850;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    .filter-button:hover {
+      border-color: var(--green);
+      color: white;
+    }
+
+    .filter-button.active {
+      border-color: var(--green);
+      background: var(--green);
+      color: var(--night);
+      box-shadow: 0 0 22px rgba(141,187,82,.15);
+    }
+
+    /* GRILLE ÉQUIPE */
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 20px;
+      padding-bottom: 80px;
+    }
+
+    .member-card {
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 17px;
+      border: 1px solid var(--purple-border);
+      border-radius: 15px;
+      background: var(--panel);
+      color: white;
+      text-align: center;
+      cursor: pointer;
+      transition: transform .22s ease, border-color .22s ease,
+                  box-shadow .22s ease, background .22s ease;
+    }
+
+    .member-card:hover,
+    .member-card:focus-visible {
+      transform: translateY(-5px);
+      border-color: var(--green);
+      background: #1b1237;
+      box-shadow: 0 12px 35px rgba(0,0,0,.2);
+      outline: none;
+    }
+
+    .member-avatar {
+      display: grid;
+      width: 112px;
+      height: 112px;
+      flex: 0 0 auto;
+      overflow: hidden;
+      place-items: center;
+      margin-bottom: 18px;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 50%;
+      background: #402064;
+      color: white;
+      font-size: 2rem;
+      font-weight: 900;
+    }
+
+    .member-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .member-card h2 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      font-weight: 900;
+      line-height: 1.4;
+    }
+
+    .member-job {
+      margin: 0 0 12px;
+      color: #e4efbb;
+      font-size: .91rem;
+    }
+
+    .member-poles {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 5px;
+      color: #9586ba;
+      font-size: .62rem;
+      line-height: 1.7;
+      text-transform: uppercase;
+    }
+
+    .member-poles span {
+      display: inline;
+    }
+
+    .member-card .view-profile {
+      margin-top: 15px;
+      color: var(--green);
+      font-size: .75rem;
+      font-weight: 850;
+    }
+
+    .empty-members {
+      grid-column: 1 / -1;
+      padding: 35px;
+      border: 1px dashed var(--purple-border);
+      border-radius: 15px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    /* FICHE INDIVIDUELLE */
+
+    .profile-view {
+      padding: 30px 0 80px;
+    }
+
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 28px;
+      padding: 0;
+      border: 0;
+      background: none;
+      color: var(--muted);
+      font-family: inherit;
+      font-size: .9rem;
+      cursor: pointer;
+    }
+
+    .back-button:hover {
+      color: var(--green);
+    }
+
+    .profile-header {
+      display: grid;
+      grid-template-columns: 145px minmax(0, 1fr);
+      align-items: center;
+      gap: 27px;
+      margin-bottom: 35px;
+    }
+
+    .profile-avatar {
+      display: grid;
+      width: 145px;
+      height: 145px;
+      overflow: hidden;
+      place-items: center;
+      border: 1px solid var(--purple-border);
+      border-radius: 16px;
+      background: var(--panel-light);
+      box-shadow: 0 0 30px rgba(132,68,177,.15);
+      color: white;
+      font-size: 2.5rem;
+      font-weight: 900;
+    }
+
+    .profile-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .profile-poles {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 8px;
+    }
+
+    .profile-pole {
+      color: var(--green);
+      font-size: .7rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .profile-header h2 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 950;
+      letter-spacing: -.035em;
+      line-height: 1.15;
+    }
+
+    .profile-job {
+      margin: 7px 0 0;
+      color: #e4efbb;
+      font-size: 1.05rem;
+    }
+
+    .profile-presentation {
+      padding: 25px 22px;
+      border: 1px solid var(--purple-border);
+      border-radius: 12px;
+      background: var(--panel);
+    }
+
+    .profile-presentation h3 {
+      margin: 0 0 10px;
+      color: var(--green);
+      font-size: 1rem;
+    }
+
+    .profile-presentation p {
+      margin: 0;
+      color: #d4cde6;
+      font-size: 1rem;
+      line-height: 1.8;
+      white-space: pre-line;
+    }
+
+    .profile-details {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 240px));
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .profile-detail-card {
+      min-height: 180px;
+      padding: 19px;
+      border: 1px solid var(--purple-border);
+      border-radius: 12px;
+      background: var(--panel);
+    }
+
+    .profile-detail-icon {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      margin-bottom: 12px;
+      border-radius: 11px;
+      background: rgba(132,68,177,.2);
+      color: var(--green);
+      font-size: 1.1rem;
+    }
+
+    .profile-detail-card h3 {
+      margin: 0 0 9px;
+      font-size: .88rem;
+    }
+
+    .profile-detail-card p {
+      margin: 0;
+      color: #c6bfdc;
+      font-size: .85rem;
+      line-height: 1.65;
+      white-space: pre-line;
+    }
+
+    .profile-detail-card a {
+      color: var(--green);
+      text-decoration: none;
+    }
+
+    .profile-detail-card a:hover {
+      text-decoration: underline;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 1000px) {
+      .team-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+      .team-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .members-container {
+        width: calc(100% - 30px);
+      }
+
+      .member-card {
+        padding: 19px 10px;
+      }
+
+      .member-avatar {
+        width: 88px;
+        height: 88px;
+      }
+
+      .member-card h2 {
+        font-size: .88rem;
+      }
+
+      .filter-button {
+        font-size: .69rem;
+        padding: 9px 11px;
+      }
+
+      .profile-header {
+        grid-template-columns: 95px minmax(0, 1fr);
+        gap: 16px;
+      }
+
+      .profile-avatar {
+        width: 95px;
+        height: 95px;
+        border-radius: 13px;
+        font-size: 1.8rem;
+      }
+
+      .profile-details {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .team-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .member-card {
+        padding: 20px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .members-page *,
+      .members-page *::before,
+      .members-page *::after {
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<div class="members-page">
+
+  <a class="skip-link" href="#main-content">Aller au contenu</a>
+
+  <!-- EN-TÊTE DU SITE -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html" aria-label="Accueil ACJ Puy-de-Dôme">
+        <img src="images/logo.png" alt="Logo Auvergn' Connect Jeunes">
+        <span class="brand-text">
+          <strong>ACJ</strong>
+          <small>ÉDITION PUY-DE-DÔME</small>
+        </span>
+      </a>
+
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">
+        <span></span><span></span><span></span>
+        <span class="sr-only">Ouvrir le menu</span>
+      </button>
+
+      <nav class="main-nav" id="main-nav" aria-label="Navigation principale">
+        <a href="index.html">Accueil</a>
+        <a href="editions.html">Nos éditions</a>
+        <a href="concept.html">Le concept</a>
+        <a class="active" href="membres.html" aria-current="page">Les membres</a>
+        <a href="galerie.html">Galerie</a>
+        <a href="partenaires.html">Partenaires</a>
+        <a href="inscription.html">Nous rejoindre</a>
+        <a href="../contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- BANDEAU PARTENAIRES -->
+  <section class="partner-strip" aria-label="Nos partenaires">
+    <div class="partner-track">
+      <a class="partner-logo" href="https://ontitouch.fr" target="_blank" rel="noopener noreferrer">
+        <img src="images/partenaires/ontitouch.png" alt="Logo Ontitouch">
+      </a>
+      <a class="partner-cta" href="partenaires.html">
+        <span class="plus-icon" aria-hidden="true">+</span>
+        <span>
+          <strong>Devenir partenaire</strong>
+          <small>Construisons des projets ensemble</small>
+        </span>
+      </a>
+      <a class="partner-logo partner-repeat" href="https://ontitouch.fr" target="_blank" rel="noopener noreferrer" aria-hidden="true" tabindex="-1">
+        <img src="images/partenaires/ontitouch.png" alt="">
+      </a>
+      <a class="partner-cta partner-repeat" href="partenaires.html" aria-hidden="true" tabindex="-1">
+        <span class="plus-icon" aria-hidden="true">+</span>
+        <span>
+          <strong>Devenir partenaire</strong>
+          <small>Construisons des projets ensemble</small>
+        </span>
+      </a>
+    </div>
+  </section>
+
+  <main id="main-content">
+
+    <!-- VUE ÉQUIPE -->
+    <section id="team-view">
+      <div class="members-heading">
+        <div class="members-container">
+          <span class="members-eyebrow">AUVERGN' CONNECT JEUNES</span>
+          <h1>L'<span>équipe</span></h1>
+          <p>Les jeunes qui font vivre ACJ au quotidien.</p>
+        </div>
+      </div>
+
+      <div class="members-container">
+        <div class="members-toolbar" role="group" aria-label="Filtrer les membres">
+          <button class="filter-button active" type="button" data-filter="Tous" aria-pressed="true">TOUS</button>
+          <button class="filter-button" type="button" data-filter="Bureau" aria-pressed="false">BUREAU</button>
+          <button class="filter-button" type="button" data-filter="Conseil d'administration" aria-pressed="false">CONSEIL D'ADMINISTRATION</button>
+          <button class="filter-button" type="button" data-filter="Pôle journalisme" aria-pressed="false">PÔLE JOURNALISME</button>
+          <button class="filter-button" type="button" data-filter="Pôle audiovisuel" aria-pressed="false">PÔLE AUDIOVISUEL</button>
+          <button class="filter-button" type="button" data-filter="Pôle post-production" aria-pressed="false">PÔLE POST-PRODUCTION</button>
+          <button class="filter-button" type="button" data-filter="Pôle partenariats" aria-pressed="false">PÔLE PARTENARIATS</button>
+          <button class="filter-button" type="button" data-filter="Pôle communication" aria-pressed="false">PÔLE COMMUNICATION</button>
+          <button class="filter-button" type="button" data-filter="Pôle numérique" aria-pressed="false">PÔLE NUMÉRIQUE</button>
+        </div>
+
+        <div class="team-grid" id="team-grid" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- VUE FICHE MEMBRE -->
+    <section id="profile-view" class="profile-view hidden">
+      <div class="members-container">
+        <button class="back-button" type="button" id="back-to-team">‹ &nbsp; L'équipe</button>
+
+        <div class="profile-header">
+          <div class="profile-avatar" id="profile-avatar"></div>
+          <div>
+            <div class="profile-poles" id="profile-poles"></div>
+            <h2 id="profile-name"></h2>
+            <p class="profile-job" id="profile-job"></p>
+          </div>
+        </div>
+
+        <article class="profile-presentation">
+          <h3>Présentation</h3>
+          <p id="profile-presentation"></p>
+        </article>
+
+        <div class="profile-details">
+          <article class="profile-detail-card">
+            <div class="profile-detail-icon" aria-hidden="true">♧</div>
+            <h3>Son rôle dans ACJ</h3>
+            <p id="profile-role"></p>
+          </article>
+
+          <article class="profile-detail-card">
+            <div class="profile-detail-icon" aria-hidden="true">⚑</div>
+            <h3>Ses projets</h3>
+            <p id="profile-projects"></p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- PIED DE PAGE -->
+  <footer class="site-footer">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <a class="brand footer-brand-link" href="index.html">
+          <img src="images/logo.png" alt="Logo Auvergn' Connect Jeunes">
+          <span class="brand-text">
+            <strong>ACJ</strong>
+            <small>ÉDITION PUY-DE-DÔME</small>
+          </span>
+        </a>
+        <p>Un média créé par et pour des jeunes.</p>
+      </div>
+
+      <div class="footer-column">
+        <h2>Explorer</h2>
+        <a href="concept.html">Le concept</a>
+        <a href="editions.html">Nos éditions</a>
+        <a href="galerie.html">Galerie photo</a>
+        <a href="partenaires.html">Partenaires</a>
+      </div>
+
+      <div class="footer-column">
+        <h2>Participer</h2>
+        <a href="membres.html">Les membres</a>
+        <a href="inscription.html">Nous rejoindre</a>
+        <a href="../contact.html">Nous contacter</a>
+      </div>
+
+      <div class="footer-column">
+        <h2>Suivre ACJ</h2>
+        <a href="https://www.instagram.com/auvergn_connect_jeunes/" target="_blank" rel="noopener noreferrer">Instagram ↗</a>
+        <a href="https://www.tiktok.com/@auvergn_connect_jeunes" target="_blank" rel="noopener noreferrer">TikTok ↗</a>
+        <a href="https://www.youtube.com/@auvergn_connect_Jeune" target="_blank" rel="noopener noreferrer">YouTube ↗</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© <span id="current-year"></span> Auvergn' Connect Jeunes</span>
+      <div class="footer-legal">
+        <a href="../mentions-legales.html">Mentions légales</a>
+        <a href="../confidentialite.html">Confidentialité</a>
+        <a href="../cookies.html">Cookies</a>
+        <button type="button" id="open-cookie-settings">Gérer mes cookies</button>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script src="js/puy-de-dome.js"></script>
+
+<script>
+  /*
+    DONNÉES DES MEMBRES
+    Remplace photo par le chemin de la photo du membre.
+    Exemple : "images/membres/noe.jpg"
+    Laisse photo vide pour afficher ses initiales.
+  */
+
+  const members = [
+    {
+      id: "noe-potet",
+      name: "POTET Noé",
+      initials: "N",
+      photo: "images/membres/noe.png",
+      job: "Président",
+      poles: [
+        "Bureau",
+        "Conseil d'administration",
+        "Pôle journalisme",
+        "Pôle audiovisuel",
+        "Pôle partenariats",
+        "Pôle communication",
+        "Pôle numérique"
+      ],
+      presentation:
+        "Je suis Noé, président et fondateur d’Auvergn' Connect Jeunes. À travers ACJ, je souhaite créer un espace où les jeunes peuvent s’informer, découvrir leur territoire, participer à des projets et développer leurs compétences dans les domaines des médias, de la communication et de l’audiovisuel.",
+      role:
+        "En tant que président, je participe au développement général de l’association et à la coordination de ses projets. Je m’occupe notamment de la préparation des reportages et contenus, de la communication, des relations avec les partenaires et de l’organisation des différents projets d’ACJ. Je veille également au bon fonctionnement de l’association et à la mise en place de nouvelles idées.",
+      projects:
+        "🎬 Tournages 2026\n• Clermont Geek Convention\n• Les Nocturnes du Puy-de-Dôme"
+    },
+    {
+      id: "yann-babevski",
+      name: "BABEVSKI Yann",
+      initials: "B",
+      photo: "",
+      job: "Vice-Président",
+      poles: [
+        "Bureau",
+        "Conseil d'administration",
+        "Pôle journalisme",
+        "Pôle audiovisuel",
+        "Pôle post-production",
+        "Pôle numérique"
+      ],
+      presentation: "Présentation à compléter.",
+      role: "Présentation du rôle à compléter avec le membre.",
+      projects: "Projets à compléter."
+    },
+    {
+      id: "marjorie-landan",
+      name: "LANDAN Marjorie",
+      initials: "L",
+      photo: "",
+      job: "Secrétaire",
+      poles: [
+        "Bureau",
+        "Pôle journalisme",
+        "Pôle audiovisuel",
+        "Conseil d'administration"
+      ],
+      presentation: "Présentation à compléter.",
+      role: "Présentation du rôle à compléter avec le membre.",
+      projects: "Projets à compléter."
+    },
+    {
+      id: "kelly-sapotille",
+      name: "SAPOTILLE Kelly",
+      initials: "S",
+      photo: "",
+      job: "Trésorière",
+      poles: [
+        "Conseil d'administration",
+        "Pôle audiovisuel",
+        "Pôle journalisme"
+      ],
+      presentation: "Présentation à compléter.",
+      role: "Présentation du rôle à compléter avec le membre.",
+      projects: "Projets à compléter."
+    },
+    {
+      id: "maeva-di-nota",
+      name: "DI NOTA Maëva",
+      initials: "D",
+      photo: "",
+      job: "Chargée de communication",
+      poles: [
+        "Conseil d'administration",
+        "Pôle communication",
+        "Pôle journalisme"
+      ],
+      presentation: "Présentation à compléter.",
+      role: "Présentation du rôle à compléter avec le membre.",
+      projects: "Projets à compléter."
+    },
+    {
+      id: "julie-landan",
+      name: "LANDAN Julie",
+      initials: "L",
+      photo: "",
+      job: "Journaliste",
+      poles: ["Pôle journalisme"],
+      presentation: "Présentation à compléter.",
+      role: "Présentation du rôle à compléter avec le membre.",
+      projects: "Projets à compléter."
+    },
+    {
+      id: "marie-mauranne",
+      name: "MAURANNE Marie",
+      initials: "M",
+      photo: "",
+      job: "Journaliste",
+      poles: ["Pôle journalisme"],
+      presentation: "Présentation à compléter.",
+      role: "Présentation du rôle à compléter avec le membre.",
+      projects: "Projets à compléter."
+    },
+    {
+      id: "noah-chalmeton",
+      name: "CHALMETON Noah",
+      initials: "N",
+      photo: "",
+      job: "Chef de projet",
+      poles: [
+        "Pôle journalisme",
+        "Pôle audiovisuel",
+        "Pôle partenariats"
+      ],
+      presentation: "Présentation à compléter.",
+      role: "Présentation du rôle à compléter avec le membre.",
+      projects: "Projets à compléter."
+    }
+  ];
+
+  const teamGrid = document.getElementById("team-grid");
+  const teamView = document.getElementById("team-view");
+  const profileView = document.getElementById("profile-view");
+  let activeFilter = "Tous";
+
+  function createAvatar(member, className) {
+    const avatar = document.createElement("div");
+    avatar.className = className;
+
+    if (member.photo) {
+      const image = document.createElement("img");
+      image.src = member.photo;
+      image.alt = "Photo de " + member.name;
+      image.loading = "lazy";
+
+      image.addEventListener("error", () => {
+        avatar.textContent = member.initials || member.name.charAt(0);
+      });
+
+      avatar.appendChild(image);
+    } else {
+      avatar.textContent = member.initials || member.name.charAt(0);
+    }
+
+    return avatar;
+  }
+
+  function renderMembers() {
+    teamGrid.replaceChildren();
+
+    const filtered = members.filter(member =>
+      activeFilter === "Tous" || member.poles.includes(activeFilter)
+    );
+
+    if (filtered.length === 0) {
+      const empty = document.createElement("p");
+      empty.className = "empty-members";
+      empty.textContent = "Aucun membre dans cette catégorie pour le moment.";
+      teamGrid.appendChild(empty);
+      return;
+    }
+
+    filtered.forEach(member => {
+      const card = document.createElement("button");
+      card.type = "button";
+      card.className = "member-card";
+      card.setAttribute("aria-label", "Voir la fiche de " + member.name);
+
+      card.appendChild(createAvatar(member, "member-avatar"));
+
+      const name = document.createElement("h2");
+      name.textContent = member.name;
+      card.appendChild(name);
+
+      const job = document.createElement("p");
+      job.className = "member-job";
+      job.textContent = member.job;
+      card.appendChild(job);
+
+      const poles = document.createElement("div");
+      poles.className = "member-poles";
+
+      member.poles.forEach(pole => {
+        const tag = document.createElement("span");
+        tag.textContent = pole;
+        poles.appendChild(tag);
+      });
+
+      card.appendChild(poles);
+
+      const link = document.createElement("span");
+      link.className = "view-profile";
+      link.textContent = "Voir le profil ↗";
+      card.appendChild(link);
+
+      card.addEventListener("click", () => showProfile(member.id));
+      teamGrid.appendChild(card);
+    });
+  }
+
+  function showProfile(memberId) {
+    const member = members.find(item => item.id === memberId);
+    if (!member) return;
+
+    const avatarSlot = document.getElementById("profile-avatar");
+    avatarSlot.replaceWith(createAvatar(member, "profile-avatar"));
+
+    document.querySelector("#profile-view .profile-header .profile-avatar").id = "profile-avatar";
+
+    document.getElementById("profile-name").textContent = member.name;
+    document.getElementById("profile-job").textContent = member.job;
+    document.getElementById("profile-presentation").textContent = member.presentation;
+    document.getElementById("profile-role").textContent = member.role;
+    document.getElementById("profile-projects").textContent = member.projects;
+
+    const poles = document.getElementById("profile-poles");
+    poles.replaceChildren();
+
+    member.poles.forEach(pole => {
+      const tag = document.createElement("span");
+      tag.className = "profile-pole";
+      tag.textContent = pole;
+      poles.appendChild(tag);
+    });
+
+    teamView.classList.add("hidden");
+    profileView.classList.remove("hidden");
+
+    history.replaceState(null, "", "#" + encodeURIComponent(member.id));
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function showTeam() {
+    profileView.classList.add("hidden");
+    teamView.classList.remove("hidden");
+    history.replaceState(null, "", location.pathname);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  document.querySelectorAll("[data-filter]").forEach(button => {
+    button.addEventListener("click", () => {
+      activeFilter = button.dataset.filter;
+
+      document.querySelectorAll("[data-filter]").forEach(item => {
+        const selected = item === button;
+        item.classList.toggle("active", selected);
+        item.setAttribute("aria-pressed", String(selected));
+      });
+
+      renderMembers();
+    });
+  });
+
+  document.getElementById("back-to-team").addEventListener("click", showTeam);
+
+  function loadProfileFromHash() {
+    const id = decodeURIComponent(location.hash.slice(1));
+    if (id && members.some(member => member.id === id)) {
+      showProfile(id);
+    }
+  }
+
+  document.getElementById("current-year").textContent = new Date().getFullYear();
+
+  renderMembers();
+  loadProfileFromHash();
+</script>
+
+</body>
+</html>
