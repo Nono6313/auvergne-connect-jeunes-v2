@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0A0927">
   <title>Nos partenaires | ACJ Puy-de-Dôme</title>
-  <meta name="description" content="Découvrez les partenaires d'Auvergn' Connect Jeunes et les possibilités de collaboration avec notre média jeunesse.">
+  <meta name="description" content="Découvrez les partenaires institutionnels, entreprises partenaires et collaborateurs d'Auvergn' Connect Jeunes pour l'année associative 2026-2027.">
   <link rel="icon" href="images/logo.png">
   <link rel="stylesheet" href="css/puy-de-dome.css">
 
@@ -85,6 +85,21 @@
       box-shadow: 0 0 12px #8DBB52;
     }
 
+    .year-note {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-top: 24px;
+      padding: 11px 17px;
+      border: 1px solid #8dbb5266;
+      border-radius: 12px;
+      background: #8dbb5210;
+      color: #b9e18f;
+      font-size: .82rem;
+      font-weight: 800;
+      letter-spacing: .04em;
+    }
+
     .partners-container {
       width: min(1120px, calc(100% - 36px));
       margin: 0 auto;
@@ -109,6 +124,53 @@
       line-height: 1.8;
     }
 
+    .partner-category {
+      margin-top: 65px;
+      scroll-margin-top: 100px;
+    }
+
+    .category-heading {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .category-icon {
+      display: grid;
+      width: 58px;
+      height: 58px;
+      flex: 0 0 58px;
+      place-items: center;
+      border: 1px solid #8444b166;
+      border-radius: 17px;
+      background: #8444b119;
+      color: #d0b4e6;
+      font-size: 1.6rem;
+    }
+
+    .category-heading h2 {
+      margin: 0 0 5px;
+      font-size: clamp(1.35rem, 3vw, 1.9rem);
+      letter-spacing: -.035em;
+    }
+
+    .category-heading p {
+      margin: 0;
+      color: var(--muted, #b5b0cc);
+      font-size: .92rem;
+      line-height: 1.65;
+    }
+
+    .category-number {
+      margin-left: auto;
+      color: #b5b0cc80;
+      font-size: .78rem;
+      font-weight: 850;
+      letter-spacing: .1em;
+      white-space: nowrap;
+    }
+
     .partners-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -121,20 +183,19 @@
       min-width: 0;
       flex-direction: column;
       overflow: hidden;
-      padding: 28px;
+      padding: 25px;
       border: 1px solid #8444b14a;
-      border-radius: 24px;
+      border-radius: 22px;
       background:
         radial-gradient(ellipse at top right, #8444b118, transparent 60%),
         linear-gradient(145deg, #151132, #0d0b26);
       box-shadow: 0 18px 55px #0002;
-      transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+      transition: transform .25s ease, border-color .25s ease;
     }
 
     .partner-card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-4px);
       border-color: #8444b1b5;
-      box-shadow: 0 22px 60px #8444b120;
     }
 
     .partner-card.featured {
@@ -149,7 +210,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
 
     .partner-status {
@@ -163,7 +224,7 @@
       color: #a8d878;
       font-size: .7rem;
       font-weight: 800;
-      letter-spacing: .06em;
+      letter-spacing: .04em;
       text-transform: uppercase;
     }
 
@@ -175,51 +236,35 @@
       content: "";
     }
 
-    .partner-number {
-      color: #b5b0cc80;
-      font-size: .8rem;
-      font-weight: 800;
-      letter-spacing: .12em;
-    }
-
     .partner-logo-box {
       display: flex;
-      min-height: 190px;
+      min-height: 175px;
       align-items: center;
       justify-content: center;
-      padding: 25px;
+      padding: 24px;
       border: 1px solid #ffffff12;
-      border-radius: 18px;
-      background: #08071d99;
+      border-radius: 16px;
+      background: #fff;
     }
 
     .partner-logo-box img {
       display: block;
       max-width: 100%;
       width: 240px;
-      max-height: 130px;
+      max-height: 125px;
       object-fit: contain;
     }
 
-    .partner-logo-fallback {
-      display: none;
-      color: #f8f7ff;
-      font-size: 1.8rem;
-      font-weight: 900;
-      letter-spacing: -.04em;
-      text-align: center;
-    }
-
     .partner-card h3 {
-      margin: 25px 0 10px;
+      margin: 23px 0 10px;
       color: #f8f7ff;
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       letter-spacing: -.035em;
     }
 
     .partner-card > p {
       flex: 1;
-      margin: 0 0 23px;
+      margin: 0 0 20px;
       color: var(--muted, #b5b0cc);
       line-height: 1.8;
     }
@@ -228,7 +273,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-bottom: 24px;
+      margin-bottom: 22px;
     }
 
     .partner-tags span {
@@ -268,133 +313,21 @@
       transform: translate(3px, -3px);
     }
 
-    .empty-partner {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 390px;
-      padding: 30px;
+    .partner-category-empty {
+      padding: 28px;
       border: 1px dashed #8444b166;
-      border-radius: 24px;
+      border-radius: 20px;
       background: #8444b108;
-      text-align: center;
-    }
-
-    .empty-partner-icon {
-      display: grid;
-      width: 76px;
-      height: 76px;
-      place-items: center;
-      margin-bottom: 20px;
-      border: 1px solid #8dbb5266;
-      border-radius: 50%;
-      background: #8dbb5210;
-      color: #8DBB52;
-      font-size: 2rem;
-    }
-
-    .empty-partner h3 {
-      margin: 0 0 10px;
-      font-size: 1.35rem;
-    }
-
-    .empty-partner p {
-      max-width: 430px;
-      margin: 0;
       color: var(--muted, #b5b0cc);
+      text-align: center;
       line-height: 1.8;
     }
 
-    .benefits-section {
-      margin-top: 90px;
-    }
-
-    .benefits-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 17px;
-    }
-
-    .benefit-card {
-      padding: 25px;
-      border: 1px solid #ffffff13;
-      border-radius: 19px;
-      background: linear-gradient(145deg, #151132, #0d0b26);
-      transition: transform .2s ease, border-color .2s ease;
-    }
-
-    .benefit-card:hover {
-      transform: translateY(-4px);
-      border-color: #8444b180;
-    }
-
-    .benefit-icon {
-      display: grid;
-      width: 49px;
-      height: 49px;
-      place-items: center;
-      margin-bottom: 20px;
-      border: 1px solid #8444b15c;
-      border-radius: 14px;
-      background: #8444b11c;
-      color: #c39ae5;
-      font-size: 1.35rem;
-    }
-
-    .benefit-card h3 {
-      margin: 0 0 10px;
+    .partner-category-empty strong {
+      display: block;
+      margin-bottom: 7px;
       color: #f8f7ff;
       font-size: 1.08rem;
-    }
-
-    .benefit-card p {
-      margin: 0;
-      color: var(--muted, #b5b0cc);
-      font-size: .92rem;
-      line-height: 1.8;
-    }
-
-    .partnership-types {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 15px;
-      margin-top: 25px;
-    }
-
-    .partnership-type {
-      display: flex;
-      align-items: flex-start;
-      gap: 15px;
-      padding: 19px;
-      border: 1px solid #ffffff14;
-      border-radius: 16px;
-      background: #ffffff05;
-    }
-
-    .partnership-type > span {
-      display: grid;
-      width: 39px;
-      height: 39px;
-      flex: 0 0 39px;
-      place-items: center;
-      border-radius: 12px;
-      background: #8dbb5218;
-      color: #8DBB52;
-      font-size: 1.1rem;
-    }
-
-    .partnership-type h3 {
-      margin: 0 0 6px;
-      color: #f8f7ff;
-      font-size: .98rem;
-    }
-
-    .partnership-type p {
-      margin: 0;
-      color: var(--muted, #b5b0cc);
-      font-size: .88rem;
-      line-height: 1.65;
     }
 
     .partnership-cta {
@@ -404,7 +337,7 @@
       justify-content: space-between;
       gap: 35px;
       overflow: hidden;
-      margin-top: 90px;
+      margin-top: 80px;
       padding: clamp(28px, 5vw, 55px);
       border: 1px solid #8444b166;
       border-radius: 26px;
@@ -472,9 +405,8 @@
     }
 
     @media (max-width: 800px) {
-      .partners-grid,
-      .benefits-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+      .partners-grid {
+        grid-template-columns: 1fr;
       }
 
       .partnership-cta {
@@ -499,23 +431,30 @@
         padding-bottom: 55px;
       }
 
-      .partners-grid,
-      .benefits-grid,
-      .partnership-types {
-        grid-template-columns: 1fr;
-      }
-
       .partner-card {
         padding: 19px;
       }
 
       .partner-logo-box {
-        min-height: 155px;
+        min-height: 145px;
       }
 
-      .benefits-section,
+      .category-heading {
+        align-items: flex-start;
+      }
+
+      .category-icon {
+        width: 48px;
+        height: 48px;
+        flex-basis: 48px;
+      }
+
+      .category-number {
+        display: none;
+      }
+
       .partnership-cta {
-        margin-top: 60px;
+        margin-top: 55px;
       }
 
       .partnership-cta-actions {
@@ -562,7 +501,6 @@
         <a href="editions.html">Nos éditions</a>
         <a href="concept.html">Le concept</a>
         <a href="membres.html">Les membres</a>
-        <a href="organigramme.html">Organigramme</a>
         <a href="galerie.html">Galerie</a>
         <a class="active" href="partenaires.html" aria-current="page">Partenaires</a>
         <a href="inscription.html">Nous rejoindre</a>
@@ -572,39 +510,15 @@
   </header>
 
   <main id="contenu">
-    <section class="partner-strip" aria-label="Nos partenaires">
-      <div class="partner-track">
-        <a class="partner-logo" href="https://ontitouch.fr" target="_blank" rel="noopener noreferrer">
-          <img src="images/partenaires/ontitouch.png" alt="Logo Ontitouch">
-        </a>
-        <a class="partner-cta" href="../contact.html">
-          <span class="plus-icon" aria-hidden="true">+</span>
-          <span>
-            <strong>Devenir partenaire</strong>
-            <small>Construisons des projets ensemble</small>
-          </span>
-        </a>
-        <a class="partner-logo partner-repeat" href="https://ontitouch.fr" target="_blank" rel="noopener noreferrer" aria-hidden="true" tabindex="-1">
-          <img src="images/partenaires/ontitouch.png" alt="">
-        </a>
-        <a class="partner-cta partner-repeat" href="../contact.html" aria-hidden="true" tabindex="-1">
-          <span class="plus-icon" aria-hidden="true">+</span>
-          <span>
-            <strong>Devenir partenaire</strong>
-            <small>Construisons des projets ensemble</small>
-          </span>
-        </a>
-      </div>
-    </section>
-
     <section class="partners-hero">
       <span class="partners-pill"><i></i> L'ÉCOSYSTÈME ACJ</span>
       <h1>Nos <span>partenaires.</span></h1>
       <p>
         Derrière chaque projet, il y a des rencontres et des personnes qui
-        nous font confiance. Découvrez les partenaires qui accompagnent
-        Auvergn' Connect Jeunes et ceux qui nous rejoindront demain.
+        nous font confiance. Découvrez les institutions, entreprises et
+        collaborateurs qui accompagnent Auvergn' Connect Jeunes.
       </p>
+      <div class="year-note">✦ ANNÉE ASSOCIATIVE 2026–2027</div>
     </section>
 
     <section class="partners-container">
@@ -612,152 +526,176 @@
         <span class="eyebrow">ILS NOUS ACCOMPAGNENT</span>
         <h2>Ensemble, on va <span>plus loin.</span></h2>
         <p>
-          Des collaborations qui permettent aux jeunes de découvrir,
-          de créer et de raconter les histoires de notre territoire.
+          Nous remercions toutes les structures qui soutiennent notre média
+          jeunesse, nos projets audiovisuels et nos reportages en Auvergne.
+          Cette page présente les partenariats de l'année associative 2026–2027.
         </p>
       </div>
 
-      <div class="partners-grid">
-        <article class="partner-card featured">
-          <div class="partner-card-top">
-            <span class="partner-status">Partenaire ACJ</span>
-            <span class="partner-number">01 / PARTENAIRE</span>
+      <!-- CATÉGORIE 1 : PARTENAIRES INSTITUTIONNELS -->
+      <section class="partner-category" id="institutionnels">
+        <div class="category-heading">
+          <div class="category-icon" aria-hidden="true">🏛</div>
+          <div>
+            <h2>Partenaires institutionnels</h2>
+            <p>État, collectivités territoriales et organismes publics.</p>
           </div>
+          <span class="category-number">01 / 03</span>
+        </div>
 
-          <a class="partner-logo-box" href="https://ontitouch.fr" target="_blank" rel="noopener noreferrer" aria-label="Découvrir le site d'Ontitouch">
-            <img
-              src="images/partenaires/ontitouch.png"
-              alt="Logo Ontitouch"
-              loading="lazy"
-              onerror="this.style.display='none';this.nextElementSibling.style.display='block';"
-            >
-            <span class="partner-logo-fallback">ONTITOUCH</span>
-          </a>
+        <div class="partner-category-empty">
+          <strong>Les partenaires institutionnels d'ACJ</strong>
+          Les institutions qui soutiennent officiellement Auvergn' Connect Jeunes
+          pour l'année associative 2026–2027 seront présentées ici après confirmation
+          de leur partenariat.
+        </div>
+      </section>
 
-          <h3>Ontitouch</h3>
-          <p>
-            Ontitouch accompagne Auvergn' Connect Jeunes dans son aventure.
-            Cette collaboration contribue au développement de nos projets
-            et à la création de nouvelles opportunités pour les jeunes.
-          </p>
-
-          <div class="partner-tags">
-            <span>Collaboration</span>
-            <span>Engagement jeunesse</span>
+      <!-- CATÉGORIE 2 : ENTREPRISES PARTENAIRES -->
+      <section class="partner-category" id="entreprises">
+        <div class="category-heading">
+          <div class="category-icon" aria-hidden="true">🤝</div>
+          <div>
+            <h2>Entreprises partenaires</h2>
+            <p>Les entreprises qui soutiennent financièrement ou matériellement ACJ.</p>
           </div>
+          <span class="category-number">02 / 03</span>
+        </div>
 
-          <a class="partner-link" href="https://ontitouch.fr" target="_blank" rel="noopener noreferrer">
-            Découvrir Ontitouch <span aria-hidden="true">↗</span>
-          </a>
-        </article>
+        <div class="partners-grid">
+          <article class="partner-card featured">
+            <div class="partner-card-top">
+              <span class="partner-status">Partenaire financier</span>
+            </div>
 
-        <article class="empty-partner">
-          <div class="empty-partner-icon" aria-hidden="true">+</div>
-          <h3>Et si c'était vous ?</h3>
-          <p>
-            Entreprises, associations, établissements et acteurs locaux :
-            rejoignez les partenaires d'ACJ et construisons ensemble
-            des projets utiles aux jeunes du territoire.
-          </p>
-          <a class="partner-link" style="margin-top:22px" href="../contact.html">
-            Parlons de votre projet <span aria-hidden="true">↗</span>
-          </a>
-        </article>
-      </div>
+            <a class="partner-logo-box"
+               href="https://ontitouch.fr"
+               target="_blank"
+               rel="noopener noreferrer"
+               aria-label="Découvrir le site d'Ontitouch">
+              <img
+                src="images/partenaires/ontitouch.png"
+                alt="Logo Ontitouch"
+                loading="lazy"
+                onerror="this.style.display='none';"
+              >
+            </a>
 
-      <section class="benefits-section">
+            <h3>Ontitouch</h3>
+            <p>
+              Entreprise artisanale auvergnate spécialisée dans la création d'accessoires et d'articles faits main, notamment à partir de tissus wax. Ontitouch by Kelly propose des créations originales et uniques, mêlant créativité, savoir-faire artisanal et inspirations culturelles, avec une large gamme de bijoux, accessoires de mode et articles du quotidien.
+            </p>
+
+            <div class="partner-tags">
+              <span>Année 2026–2027</span>
+            </div>
+
+            <a class="partner-link"
+               href="https://ontitouch.fr"
+               target="_blank"
+               rel="noopener noreferrer">
+              Découvrir Ontitouch <span aria-hidden="true">↗</span>
+            </a>
+          </article>
+          
+          <article class="partner-card featured">
+            <div class="partner-card-top">
+              <span class="partner-status">Partenaire numérique et technologique</span>
+            </div>
+
+            <a class="partner-logo-box"
+               href="https://www.google.com/nonprofits/"
+               target="_blank"
+               rel="noopener noreferrer"
+               aria-label="Découvrir le site de Google for Nonprofits">
+              <img
+                src="https://lh3.googleusercontent.com/OeG4W5OPZB6S1m9LBzWHY5RcfidqPTRcQNffWJfGVxvZyo97Ia6MpCxi1PPxZDWhAbB2VfysWP_amEy3jYeTFeld5JSrEuV0jfzRdA=w600-h314-rj"
+                alt="Logo Google for Nonprofits"
+                loading="lazy"
+                onerror="this.style.display='none';"
+              >
+            </a>
+
+            <h3>Google for Nonprofits</h3>
+            <p>
+              Il accompagne l'association dans son développement en facilitant sa communication, son organisation interne, sa collaboration et sa visibilité sur Internet, notamment grâce à Google Workspace, Google Ad Grants et YouTube.
+            </p>
+
+            <div class="partner-tags">
+              <span>Année 2026–2027</span>
+            </div>
+
+            <a class="partner-link"
+               href="https://www.google.com/nonprofits/"
+               target="_blank"
+               rel="noopener noreferrer">
+              Découvrir Google for Nonprofits <span aria-hidden="true">↗</span>
+            </a>
+          </article>
+ 
+        </div>
+      </section>
+
+      <!-- CATÉGORIE 3 : COLLABORATEURS -->
+      <section class="partner-category" id="collaborateurs">
+        <div class="category-heading">
+          <div class="category-icon" aria-hidden="true">🎬</div>
+          <div>
+            <h2>Collaborateurs</h2>
+            <p>Les structures qui nous accueillent et rendent nos tournages possibles.</p>
+          </div>
+          <span class="category-number">03 / 03</span>
+        </div>
+
+        <div class="partner-category-empty">
+          <strong>Nos collaborateurs de terrain</strong>
+          Cette catégorie mettra en avant les établissements, entreprises,
+          associations et organisateurs qui autorisent ou facilitent les tournages
+          d'ACJ durant l'année associative 2026–2027.
+        </div>
+      </section>
+
+      <!-- POURQUOI DEVENIR PARTENAIRE -->
+      <section class="partner-category">
         <div class="partners-heading">
           <span class="eyebrow">UN PARTENARIAT QUI A DU SENS</span>
           <h2>Pourquoi rejoindre <span>ACJ ?</span></h2>
           <p>
-            Soutenir un média jeunesse, c'est participer à une aventure
-            collective et donner aux jeunes la possibilité de s'exprimer.
+            Soutenir un média jeunesse, c'est participer à une aventure collective
+            et donner aux jeunes la possibilité de s'exprimer.
           </p>
         </div>
 
-        <div class="benefits-grid">
-          <article class="benefit-card">
-            <div class="benefit-icon" aria-hidden="true">✦</div>
+        <div class="partners-grid">
+          <article class="partner-card">
+            <div class="category-icon" aria-hidden="true">✦</div>
             <h3>Visibilité locale</h3>
             <p>
-              Faites découvrir votre structure à travers nos supports
-              de communication et nos projets, selon les modalités convenues.
+              Faites découvrir votre structure à travers nos supports de communication
+              et nos projets, selon les modalités convenues.
             </p>
           </article>
 
-          <article class="benefit-card">
-            <div class="benefit-icon" aria-hidden="true">▶</div>
+          <article class="partner-card">
+            <div class="category-icon" aria-hidden="true">▶</div>
             <h3>Projets audiovisuels</h3>
             <p>
-              Imaginez des reportages, des interviews et des contenus
-              qui racontent vos initiatives et vos métiers.
-            </p>
-          </article>
-
-          <article class="benefit-card">
-            <div class="benefit-icon" aria-hidden="true">⌘</div>
-            <h3>Engagement jeunesse</h3>
-            <p>
-              Encouragez l'expression, la créativité et la participation
-              des jeunes à la vie de leur territoire.
+              Imaginez des reportages, des interviews et des contenus qui racontent
+              vos initiatives, vos métiers et vos projets.
             </p>
           </article>
         </div>
       </section>
 
-      <section class="benefits-section">
-        <div class="partners-heading">
-          <span class="eyebrow">DES COLLABORATIONS SUR MESURE</span>
-          <h2>Plusieurs façons de <span>nous soutenir.</span></h2>
-          <p>
-            Chaque partenariat est discuté ensemble pour trouver une
-            collaboration adaptée aux possibilités de chacun.
-          </p>
-        </div>
-
-        <div class="partnership-types">
-          <article class="partnership-type">
-            <span aria-hidden="true">€</span>
-            <div>
-              <h3>Soutien financier</h3>
-              <p>Contribuez au financement des projets et aux besoins du média.</p>
-            </div>
-          </article>
-
-          <article class="partnership-type">
-            <span aria-hidden="true">▧</span>
-            <div>
-              <h3>Matériel et équipements</h3>
-              <p>Aidez-nous à disposer du matériel nécessaire à nos productions.</p>
-            </div>
-          </article>
-
-          <article class="partnership-type">
-            <span aria-hidden="true">⌖</span>
-            <div>
-              <h3>Accueil et accès aux lieux</h3>
-              <p>Facilitez les tournages, les visites et les rencontres sur le terrain.</p>
-            </div>
-          </article>
-
-          <article class="partnership-type">
-            <span aria-hidden="true">↗</span>
-            <div>
-              <h3>Projets communs</h3>
-              <p>Imaginons des reportages, des événements ou des actions ensemble.</p>
-            </div>
-          </article>
-        </div>
-      </section>
-
+      <!-- CONTACT -->
       <section class="partnership-cta">
         <div>
           <span class="eyebrow">CONSTRUISONS LA SUITE ENSEMBLE</span>
           <h2>Un projet en tête ?<br><span>Parlons-en.</span></h2>
           <p>
-            Vous représentez une entreprise, une association ou un établissement ?
-            Contactez Auvergn' Connect Jeunes pour discuter de votre idée
-            et imaginer une collaboration.
+            Vous représentez une institution, une entreprise ou une structure
+            qui pourrait accueillir un tournage ? Contactez Auvergn' Connect Jeunes
+            pour discuter de votre idée et imaginer une collaboration.
           </p>
         </div>
 
@@ -768,8 +706,9 @@
       </section>
 
       <p class="partners-note">
-        Chaque partenariat fait l'objet d'un échange préalable afin de définir
-        ensemble les modalités de collaboration et de communication.
+        Les catégories présentées concernent les soutiens et collaborations
+        de l'année associative 2026–2027. Chaque partenariat est présenté selon
+        la nature réelle du soutien apporté.
       </p>
     </section>
   </main>
@@ -798,7 +737,6 @@
       <div class="footer-column">
         <h2>Participer</h2>
         <a href="membres.html">Les membres</a>
-        <a href="organigramme.html">Organigramme</a>
         <a href="inscription.html">Nous rejoindre</a>
         <a href="../contact.html">Nous contacter</a>
       </div>
