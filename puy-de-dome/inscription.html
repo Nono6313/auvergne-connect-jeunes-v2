@@ -1,0 +1,723 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0A0927">
+  <meta name="description" content="Rejoins Auvergn' Connect Jeunes : découvre les étapes d'inscription et télécharge les documents nécessaires.">
+  <title>Nous rejoindre | ACJ Puy-de-Dôme</title>
+  <link rel="icon" href="images/logo.png">
+  <link rel="stylesheet" href="css/puy-de-dome.css">
+
+  <style>
+    :root {
+      --ins-purple: #8444B1;
+      --ins-green: #8DBB52;
+      --ins-dark: #0A0927;
+      --ins-panel: #171032;
+      --ins-text: #F8F7FF;
+      --ins-muted: #B5B0CC;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--ins-dark);
+      color: var(--ins-text);
+    }
+
+    .ins-hero {
+      position: relative;
+      overflow: hidden;
+      padding: 65px 22px 55px;
+      text-align: center;
+      background:
+        radial-gradient(ellipse at 15% 0%, #8444b137, transparent 55%),
+        radial-gradient(ellipse at 90% 40%, #8dbb5210, transparent 50%),
+        linear-gradient(145deg, #15102d, #0a0927 80%);
+    }
+
+    .ins-hero::after {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      content: "";
+      opacity: .4;
+      background: repeating-linear-gradient(
+        174deg,
+        transparent 0,
+        transparent 60px,
+        #ffffff08 61px,
+        transparent 63px
+      );
+    }
+
+    .ins-hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .ins-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 15px;
+      border: 1px solid #8444b15c;
+      border-radius: 30px;
+      background: #8444b116;
+      color: #d9e9bd;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .07em;
+    }
+
+    .ins-eyebrow span { color: var(--ins-green); }
+
+    .ins-hero h1 {
+      margin: 24px 0 16px;
+      font-size: clamp(2.2rem, 6vw, 4.5rem);
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -.055em;
+    }
+
+    .ins-gradient {
+      color: var(--ins-green);
+      background: linear-gradient(90deg, #8DBB52, #b5cf83, #8444B1);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .ins-hero p {
+      max-width: 700px;
+      margin: auto;
+      color: var(--ins-muted);
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    .ins-container {
+      width: min(1080px, calc(100% - 36px));
+      margin: 0 auto;
+    }
+
+    .ins-section {
+      padding: 52px 0;
+    }
+
+    .ins-section-heading {
+      margin-bottom: 32px;
+      text-align: center;
+    }
+
+    .ins-section-heading h2 {
+      margin: 0 0 12px;
+      font-size: clamp(1.65rem, 4vw, 2.25rem);
+      font-weight: 850;
+      letter-spacing: -.035em;
+    }
+
+    .ins-section-heading p {
+      margin: 0 auto;
+      max-width: 650px;
+      color: var(--ins-muted);
+      line-height: 1.7;
+    }
+
+    /* Parcours d'inscription */
+
+    .ins-timeline {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0;
+      list-style: none;
+    }
+
+    .ins-timeline::before {
+      position: absolute;
+      top: 20px;
+      bottom: 20px;
+      left: 50%;
+      width: 1px;
+      content: "";
+      background: linear-gradient(
+        to bottom,
+        var(--ins-green),
+        var(--ins-purple),
+        transparent
+      );
+    }
+
+    .ins-step {
+      position: relative;
+      display: flex;
+      width: 50%;
+      padding: 0 40px 28px 0;
+    }
+
+    .ins-step:nth-child(even) {
+      margin-left: 50%;
+      padding: 0 0 28px 40px;
+    }
+
+    .ins-step::before {
+      position: absolute;
+      top: 19px;
+      right: -6px;
+      z-index: 1;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      content: "";
+      background: var(--ins-green);
+      box-shadow: 0 0 18px #8dbb5255;
+    }
+
+    .ins-step:nth-child(even)::before {
+      right: auto;
+      left: -6px;
+    }
+
+    .ins-step-card {
+      width: 100%;
+      padding: 19px;
+      border: 1px solid #8444b155;
+      border-radius: 15px;
+      background: linear-gradient(135deg, #1a1235, #140e2d);
+      transition: transform .2s ease, border-color .2s ease;
+    }
+
+    .ins-step-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--ins-green);
+    }
+
+    .ins-step-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 9px;
+    }
+
+    .ins-step-number {
+      display: grid;
+      width: 35px;
+      height: 35px;
+      flex: 0 0 35px;
+      place-items: center;
+      border: 1px solid var(--ins-green);
+      border-radius: 50%;
+      background: #8dbb5215;
+      color: var(--ins-green);
+      font-size: .8rem;
+      font-weight: 900;
+    }
+
+    .ins-step-card h3 {
+      margin: 0;
+      font-size: .85rem;
+      font-weight: 850;
+      text-transform: uppercase;
+    }
+
+    .ins-step-card p {
+      margin: 0;
+      color: var(--ins-muted);
+      font-size: .9rem;
+      line-height: 1.65;
+    }
+
+    /* Documents */
+
+    .ins-documents {
+      padding: 48px 0 60px;
+      border-top: 1px solid #8444b133;
+      background: radial-gradient(ellipse at 50% 0%, #8444b116, transparent 65%);
+    }
+
+    .ins-doc-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .ins-doc {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 15px;
+      border: 1px solid #8444b155;
+      border-radius: 13px;
+      background: #171032;
+      transition: border-color .2s ease, transform .2s ease;
+    }
+
+    .ins-doc:hover {
+      transform: translateY(-2px);
+      border-color: var(--ins-green);
+    }
+
+    .ins-doc-icon {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      flex: 0 0 42px;
+      place-items: center;
+      border-radius: 12px;
+      background: #8444b12c;
+      color: var(--ins-green);
+    }
+
+    .ins-doc-icon svg {
+      width: 21px;
+      height: 21px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .ins-doc-info {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .ins-doc-info h3 {
+      margin: 0;
+      color: var(--ins-text);
+      font-size: .93rem;
+      font-weight: 800;
+      line-height: 1.5;
+    }
+
+    .ins-doc-info span {
+      display: block;
+      margin-top: 4px;
+      color: var(--ins-green);
+      font-size: .66rem;
+      font-weight: 800;
+      letter-spacing: .07em;
+    }
+
+    .ins-download {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      flex: 0 0 auto;
+      padding: 9px 13px;
+      border: 1px solid transparent;
+      border-radius: 9px;
+      background: #8dbb5220;
+      color: var(--ins-green);
+      font-size: .78rem;
+      font-weight: 800;
+      text-decoration: none;
+      transition: background .2s ease, color .2s ease;
+    }
+
+    .ins-download:hover {
+      background: var(--ins-green);
+      color: var(--ins-dark);
+    }
+
+    .ins-download svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* Bloc final */
+
+    .ins-final {
+      margin: 0 auto 70px;
+      padding: 38px 24px;
+      border: 1px solid #8444b155;
+      border-radius: 20px;
+      background:
+        radial-gradient(ellipse at 50% 0%, #8444b120, transparent 65%),
+        #0d0b25;
+      text-align: center;
+    }
+
+    .ins-final-icon {
+      display: grid;
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 15px;
+      place-items: center;
+      border: 2px solid var(--ins-green);
+      border-radius: 50%;
+      color: var(--ins-green);
+      font-size: 1.5rem;
+      box-shadow: 0 0 22px #8dbb5222;
+    }
+
+    .ins-final h2 {
+      margin: 0 0 12px;
+      font-size: 1.5rem;
+      font-weight: 850;
+    }
+
+    .ins-final p {
+      max-width: 600px;
+      margin: 0 auto 22px;
+      color: var(--ins-muted);
+      line-height: 1.75;
+    }
+
+    .ins-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 13px 23px;
+      border: 1px solid var(--ins-green);
+      border-radius: 11px;
+      background: var(--ins-green);
+      color: var(--ins-dark);
+      font-size: .85rem;
+      font-weight: 900;
+      text-decoration: none;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .ins-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px #8dbb5233;
+    }
+
+    .ins-note {
+      margin-top: 16px !important;
+      font-size: .8rem;
+    }
+
+    .ins-note a {
+      color: var(--ins-green);
+    }
+
+    @media (max-width: 650px) {
+      .ins-hero { padding: 48px 18px 42px; }
+      .ins-container { width: calc(100% - 28px); }
+      .ins-section { padding: 38px 0; }
+
+      .ins-timeline::before {
+        left: 17px;
+      }
+
+      .ins-step,
+      .ins-step:nth-child(even) {
+        width: 100%;
+        margin-left: 0;
+        padding: 0 0 20px 42px;
+      }
+
+      .ins-step::before,
+      .ins-step:nth-child(even)::before {
+        top: 17px;
+        right: auto;
+        left: 11px;
+      }
+
+      .ins-step-card { padding: 16px; }
+      .ins-doc { flex-wrap: wrap; gap: 11px; }
+      .ins-doc-info { flex-basis: calc(100% - 60px); }
+      .ins-download { margin-left: 53px; }
+      .ins-final { padding: 30px 18px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html" aria-label="Accueil ACJ Puy-de-Dôme">
+        <img src="images/logo.png" alt="Logo Auvergn' Connect Jeunes">
+        <span class="brand-text">
+          <strong>ACJ</strong>
+          <small>ÉDITION PUY-DE-DÔME</small>
+        </span>
+      </a>
+
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">
+        <span></span><span></span><span></span>
+        <span class="sr-only">Ouvrir le menu</span>
+      </button>
+
+      <nav class="main-nav" id="main-nav" aria-label="Navigation principale">
+        <a href="index.html">Accueil</a>
+        <a href="editions.html">Nos éditions</a>
+        <a href="concept.html">Le concept</a>
+        <a href="membres.html">Les membres</a>
+        <a href="organigramme.html">Organigramme</a>
+        <a href="galerie.html">Galerie</a>
+        <a href="partenaires.html">Partenaires</a>
+        <a class="active" href="inscription.html">Nous rejoindre</a>
+        <a href="../contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenu">
+    <section class="ins-hero">
+      <div class="ins-hero-inner">
+        <span class="ins-eyebrow"><span>✣</span> REJOINS-NOUS</span>
+        <h1>COMMENT <span class="ins-gradient">REJOINDRE ACJ</span></h1>
+        <p>
+          Tu souhaites rejoindre Auvergn' Connect Jeunes ?
+          Voici les étapes à suivre et les documents à préparer
+          pour déposer ta candidature.
+        </p>
+      </div>
+    </section>
+
+    <section class="ins-section">
+      <div class="ins-container">
+        <div class="ins-section-heading">
+          <h2>Le parcours d'inscription</h2>
+          <p>Prépare ton dossier étape par étape.</p>
+        </div>
+
+        <ol class="ins-timeline">
+          <li class="ins-step">
+            <article class="ins-step-card">
+              <div class="ins-step-title">
+                <span class="ins-step-number">01</span>
+                <h3>Télécharger les documents</h3>
+              </div>
+              <p>Récupère les formulaires correspondant à ta situation.</p>
+            </article>
+          </li>
+
+          <li class="ins-step">
+            <article class="ins-step-card">
+              <div class="ins-step-title">
+                <span class="ins-step-number">02</span>
+                <h3>Remplir les documents</h3>
+              </div>
+              <p>Complète soigneusement chaque formulaire et vérifie les informations.</p>
+            </article>
+          </li>
+
+          <li class="ins-step">
+            <article class="ins-step-card">
+              <div class="ins-step-title">
+                <span class="ins-step-number">03</span>
+                <h3>Préparer son dossier</h3>
+              </div>
+              <p>Rassemble les documents nécessaires pour que ton dossier soit complet.</p>
+            </article>
+          </li>
+
+          <li class="ins-step">
+            <article class="ins-step-card">
+              <div class="ins-step-title">
+                <span class="ins-step-number">04</span>
+                <h3>Transmettre le dossier</h3>
+              </div>
+              <p>Contacte l'équipe ACJ pour savoir comment transmettre tes documents.</p>
+            </article>
+          </li>
+
+          <li class="ins-step">
+            <article class="ins-step-card">
+              <div class="ins-step-title">
+                <span class="ins-step-number">05</span>
+                <h3>Attendre la validation</h3>
+              </div>
+              <p>L'équipe étudie ta demande et te recontacte pour la suite de ton inscription.</p>
+            </article>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="ins-documents" id="documents">
+      <div class="ins-container">
+        <div class="ins-section-heading">
+          <h2>Documents à télécharger</h2>
+          <p>Télécharge les formulaires correspondant à ton âge. Les fichiers sont hébergés sur le site ACJ.</p>
+        </div>
+
+        <div class="ins-doc-list">
+          <article class="ins-doc">
+            <div class="ins-doc-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h8"/></svg>
+            </div>
+            <div class="ins-doc-info">
+              <h3>Inscription MINEURS ACJ 2026-2027</h3>
+              <span>FORMULAIRE D'INSCRIPTION</span>
+            </div>
+            <a class="ins-download" href="../documents/inscription-mineurs-2026-2027.pdf" download>
+              <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+              Télécharger
+            </a>
+          </article>
+
+          <article class="ins-doc">
+            <div class="ins-doc-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h8"/></svg>
+            </div>
+            <div class="ins-doc-info">
+              <h3>Droit à l'image MINEURS 2026-2027</h3>
+              <span>AUTORISATION</span>
+            </div>
+            <a class="ins-download" href="../documents/droit-image-mineurs-2026-2027.pdf" download>
+              <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+              Télécharger
+            </a>
+          </article>
+
+          <article class="ins-doc">
+            <div class="ins-doc-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h8"/></svg>
+            </div>
+            <div class="ins-doc-info">
+              <h3>Attestation bénévolat MINEURS 2026-2027</h3>
+              <span>ATTESTATION</span>
+            </div>
+            <a class="ins-download" href="../documents/attestation-benevolat-mineurs-2026-2027.pdf" download>
+              <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+              Télécharger
+            </a>
+          </article>
+
+          <article class="ins-doc">
+            <div class="ins-doc-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h8"/></svg>
+            </div>
+            <div class="ins-doc-info">
+              <h3>Inscription MAJEURS ACJ 2026-2027</h3>
+              <span>FORMULAIRE D'INSCRIPTION</span>
+            </div>
+            <a class="ins-download" href="../documents/inscription-majeurs-2026-2027.pdf" download>
+              <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+              Télécharger
+            </a>
+          </article>
+
+          <article class="ins-doc">
+            <div class="ins-doc-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h8"/></svg>
+            </div>
+            <div class="ins-doc-info">
+              <h3>Droit à l'image MAJEURS 2026-2027</h3>
+              <span>AUTORISATION</span>
+            </div>
+            <a class="ins-download" href="../documents/droit-image-majeurs-2026-2027.pdf" download>
+              <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+              Télécharger
+            </a>
+          </article>
+
+          <article class="ins-doc">
+            <div class="ins-doc-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h8"/></svg>
+            </div>
+            <div class="ins-doc-info">
+              <h3>Attestation bénévolat MAJEURS 2026-2027</h3>
+              <span>ATTESTATION</span>
+            </div>
+            <a class="ins-download" href="../documents/attestation-benevolat-majeurs-2026-2027.pdf" download>
+              <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+              Télécharger
+            </a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="ins-container">
+      <div class="ins-final">
+        <div class="ins-final-icon" aria-hidden="true">✓</div>
+        <h2>Prêt à nous rejoindre ?</h2>
+        <p>
+          Une fois ton dossier préparé, contacte l'équipe ACJ via la page
+          contact pour connaître les modalités de transmission et finaliser
+          ta demande d'inscription.
+        </p>
+        <a class="ins-button" href="../contact.html">
+          NOUS CONTACTER <span aria-hidden="true">↗</span>
+        </a>
+        <p class="ins-note">
+          Une question ? Retrouve aussi les informations sur
+          <a href="concept.html">le concept d'ACJ</a>.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <a class="brand footer-brand-link" href="index.html">
+          <img src="images/logo.png" alt="Logo Auvergn' Connect Jeunes">
+          <span class="brand-text">
+            <strong>ACJ</strong>
+            <small>ÉDITION PUY-DE-DÔME</small>
+          </span>
+        </a>
+        <p>Un média créé par et pour des jeunes.</p>
+      </div>
+
+      <div class="footer-column">
+        <h2>Explorer</h2>
+        <a href="concept.html">Le concept</a>
+        <a href="editions.html">Nos éditions</a>
+        <a href="galerie.html">Galerie photo</a>
+        <a href="partenaires.html">Partenaires</a>
+      </div>
+
+      <div class="footer-column">
+        <h2>Participer</h2>
+        <a href="membres.html">Les membres</a>
+        <a href="organigramme.html">Organigramme</a>
+        <a href="inscription.html">Nous rejoindre</a>
+        <a href="../contact.html">Nous contacter</a>
+      </div>
+
+      <div class="footer-column">
+        <h2>Suivre ACJ</h2>
+        <a href="https://www.instagram.com/auvergn_connect_jeunes/" target="_blank" rel="noopener noreferrer">Instagram ↗</a>
+        <a href="https://www.tiktok.com/@auvergn_connect_jeunes" target="_blank" rel="noopener noreferrer">TikTok ↗</a>
+        <a href="https://www.youtube.com/@auvergn_connect_Jeune" target="_blank" rel="noopener noreferrer">YouTube ↗</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© <span id="current-year"></span> Auvergn' Connect Jeunes</span>
+      <div class="footer-legal">
+        <a href="../mentions-legales.html">Mentions légales</a>
+        <a href="../confidentialite.html">Confidentialité</a>
+        <a href="../cookies.html">Cookies</a>
+        <button type="button" id="open-cookie-settings">Gérer mes cookies</button>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/puy-de-dome.js"></script>
+  <script>
+    document.getElementById("current-year").textContent =
+      new Date().getFullYear();
+  </script>
+</body>
+</html>

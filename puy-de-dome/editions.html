@@ -1,0 +1,983 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0A0927">
+  <title>Nos éditions | ACJ Puy-de-Dôme</title>
+  <meta name="description" content="Explorez le territoire de l'édition Puy-de-Dôme d'Auvergn' Connect Jeunes.">
+
+  <link rel="icon" href="images/logo.png">
+  <link rel="stylesheet" href="css/puy-de-dome.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+  <style>
+    /* HERO : identité visuelle ACJ */
+    .editions-hero {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      padding: clamp(65px, 9vw, 115px) 24px 76px;
+      background:
+        radial-gradient(ellipse at 82% 30%, rgba(132,68,177,.30), transparent 38%),
+        radial-gradient(ellipse at 12% 95%, rgba(141,187,82,.12), transparent 35%),
+        linear-gradient(135deg,#191135 0%,#0A0927 65%,#100b25 100%);
+    }
+
+    .editions-hero::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      width: 440px;
+      height: 440px;
+      right: 5%;
+      top: -180px;
+      border: 1px solid rgba(141,187,82,.23);
+      border-radius: 50%;
+      box-shadow:
+        0 0 0 40px rgba(132,68,177,.05),
+        0 0 0 90px rgba(132,68,177,.04);
+      pointer-events: none;
+    }
+
+    .editions-hero::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg,transparent,#8DBB52,#8444B1,transparent);
+    }
+
+    .editions-hero-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0,1.35fr) minmax(240px,.65fr);
+      gap: 45px;
+      align-items: center;
+    }
+
+    .editions-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 14px;
+      border: 1px solid rgba(141,187,82,.3);
+      border-radius: 100px;
+      background: rgba(141,187,82,.07);
+      color: #b4df82;
+      font-size: .75rem;
+      font-weight: 800;
+      letter-spacing: .13em;
+    }
+
+    .editions-eyebrow::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #8DBB52;
+      box-shadow: 0 0 12px #8DBB52;
+    }
+
+    .editions-hero h1 {
+      margin: 27px 0 22px;
+      max-width: 850px;
+      color: #fff;
+      font-size: clamp(2.7rem,6vw,5.4rem);
+      font-weight: 850;
+      letter-spacing: -.055em;
+      line-height: 1.03;
+    }
+
+    .editions-hero h1 span {
+      display: inline-block;
+      color: #a5d56d;
+      background: linear-gradient(90deg,#8DBB52,#c4ec91);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .editions-hero-description {
+      max-width: 650px;
+      color: #d5d0e5;
+      font-size: 1.06rem;
+      line-height: 1.85;
+      margin: 0;
+    }
+
+    .editions-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 27px;
+    }
+
+    .editions-tag {
+      padding: 10px 13px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 10px;
+      background: rgba(255,255,255,.045);
+      color: #f1edf9;
+      font-size: .83rem;
+    }
+
+    .editions-tag strong {
+      color: #9bce61;
+      margin-right: 5px;
+    }
+
+    .editions-hero-visual {
+      min-height: 320px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .editions-orbit {
+      position: absolute;
+      width: 290px;
+      height: 290px;
+      border: 1px solid rgba(141,187,82,.25);
+      border-radius: 50%;
+    }
+
+    .editions-orbit::before,
+    .editions-orbit::after {
+      content: "";
+      position: absolute;
+      inset: 23px;
+      border: 1px dashed rgba(177,132,215,.35);
+      border-radius: 50%;
+    }
+
+    .editions-orbit::after {
+      inset: -25px;
+      border-style: solid;
+      border-color: rgba(132,68,177,.18);
+    }
+
+    .editions-logo-stage {
+      position: relative;
+      z-index: 2;
+      width: 180px;
+      height: 180px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 36px;
+      background: linear-gradient(145deg,rgba(132,68,177,.28),rgba(10,9,39,.9));
+      box-shadow: 0 0 70px rgba(132,68,177,.25);
+      transform: rotate(-5deg);
+    }
+
+    .editions-logo-stage img {
+      display: block;
+      width: 78%;
+      height: 78%;
+      object-fit: contain;
+      transform: rotate(5deg);
+    }
+
+    .editions-floating-label {
+      position: absolute;
+      z-index: 3;
+      padding: 10px 13px;
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 10px;
+      background: #15102e;
+      color: #eee8fa;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      box-shadow: 0 10px 30px rgba(0,0,0,.2);
+    }
+
+    .editions-floating-label.top {
+      top: 28px;
+      right: -5px;
+    }
+
+    .editions-floating-label.bottom {
+      bottom: 30px;
+      left: -5px;
+      color: #b8df8a;
+    }
+
+    /* CARTE */
+    .map-section {
+      padding: 70px 24px;
+    }
+
+    .map-section-inner {
+      max-width: 1180px;
+      margin: auto;
+    }
+
+    .map-section-heading {
+      max-width: 700px;
+      margin-bottom: 32px;
+    }
+
+    .map-section-heading .eyebrow {
+      color: #8DBB52;
+    }
+
+    .map-section-heading h2 {
+      font-size: clamp(2rem,4vw,3.2rem);
+      line-height: 1.12;
+      margin: 13px 0;
+    }
+
+    .map-section-heading h2 span {
+      color: #8DBB52;
+    }
+
+    .map-section-heading p {
+      line-height: 1.8;
+      opacity: .82;
+    }
+
+    .map-layout {
+      display: grid;
+      grid-template-columns: minmax(0,1.55fr) minmax(260px,.7fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .map-panel {
+      overflow: hidden;
+      min-width: 0;
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 22px;
+      background: #100e2a;
+      box-shadow: 0 20px 60px rgba(0,0,0,.15);
+    }
+
+    #puy-de-dome-map {
+      height: 560px;
+      width: 100%;
+      background: #151329;
+      z-index: 1;
+    }
+
+    .map-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding: 17px;
+      border-top: 1px solid rgba(255,255,255,.09);
+      color: #ddd7ec;
+      font-size: .83rem;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 4px;
+    }
+
+    .map-status {
+      padding: 12px 17px;
+      color: #d5d0e5;
+      font-size: .85rem;
+      line-height: 1.6;
+    }
+
+    .map-status a {
+      color: #b7d989;
+    }
+
+    .map-sidebar {
+      display: grid;
+      gap: 18px;
+    }
+
+    .map-info-card {
+      padding: 25px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 20px;
+      background: linear-gradient(145deg,rgba(132,68,177,.17),rgba(16,14,42,.96));
+    }
+
+    .map-info-card .card-eyebrow {
+      color: #a8d576;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+    }
+
+    .map-info-card h3 {
+      margin: 12px 0;
+      font-size: 1.35rem;
+      line-height: 1.3;
+    }
+
+    .map-info-card p,
+    .map-info-card address {
+      color: #d4cfe4;
+      font-size: .94rem;
+      line-height: 1.8;
+    }
+
+    .map-info-card address {
+      font-style: normal;
+    }
+
+    .map-info-card a {
+      color: #b8dc8b;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .map-info-card a:hover {
+      text-decoration: underline;
+    }
+
+    .map-number {
+      display: block;
+      margin-bottom: 8px;
+      color: #9dce64;
+      font-size: 2.6rem;
+      font-weight: 900;
+    }
+
+    .editions-cta {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+      max-width: 1180px;
+      margin: 0 auto 75px;
+      padding: clamp(28px,5vw,55px);
+      border: 1px solid rgba(141,187,82,.22);
+      border-radius: 25px;
+      background:
+        radial-gradient(ellipse at 90% 20%,rgba(132,68,177,.28),transparent 45%),
+        #100e2a;
+    }
+
+    .editions-cta-copy {
+      max-width: 680px;
+    }
+
+    .editions-cta .eyebrow {
+      color: #a8d576;
+      font-size: .75rem;
+      font-weight: 800;
+      letter-spacing: .13em;
+    }
+
+    .editions-cta h2 {
+      font-size: clamp(1.8rem,4vw,3rem);
+      margin: 12px 0;
+    }
+
+    .editions-cta h2 span {
+      color: #9bce61;
+    }
+
+    .editions-cta p {
+      color: #d4cfe4;
+      line-height: 1.8;
+    }
+
+    .editions-cta a {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 13px 19px;
+      border-radius: 10px;
+      background: #8DBB52;
+      color: #0A0927;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .leaflet-popup-content-wrapper,
+    .leaflet-popup-tip {
+      background: #0A0927;
+      color: white;
+    }
+
+    .leaflet-popup-content {
+      line-height: 1.65;
+    }
+
+    .leaflet-popup-content a {
+      color: #b8dc8b;
+      font-weight: 800;
+    }
+
+    .acj-popup-title {
+      font-weight: 900;
+      margin-bottom: 5px;
+    }
+
+    @media (max-width: 900px) {
+      .editions-hero-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .editions-hero-visual {
+        min-height: 270px;
+      }
+
+      .editions-logo-stage {
+        width: 150px;
+        height: 150px;
+      }
+
+      .editions-orbit {
+        width: 235px;
+        height: 235px;
+      }
+
+      .map-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .map-sidebar {
+        grid-template-columns: repeat(2,minmax(0,1fr));
+      }
+
+      .map-sidebar .map-info-card:last-child {
+        grid-column: 1 / -1;
+      }
+
+      #puy-de-dome-map {
+        height: 480px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .editions-hero {
+        padding: 55px 19px 50px;
+      }
+
+      .editions-hero h1 {
+        font-size: clamp(2.4rem,11vw,3.5rem);
+      }
+
+      .editions-hero-visual {
+        min-height: 240px;
+      }
+
+      .editions-floating-label.top {
+        right: 0;
+      }
+
+      .editions-floating-label.bottom {
+        left: 0;
+      }
+
+      .map-section {
+        padding: 48px 17px;
+      }
+
+      #puy-de-dome-map {
+        height: 380px;
+      }
+
+      .map-sidebar {
+        grid-template-columns: 1fr;
+      }
+
+      .map-sidebar .map-info-card:last-child {
+        grid-column: auto;
+      }
+
+      .editions-cta {
+        margin: 0 17px 50px;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html" aria-label="Accueil ACJ Puy-de-Dôme">
+        <img src="images/logo.png" alt="Logo Auvergn' Connect Jeunes">
+        <span class="brand-text">
+          <strong>ACJ</strong>
+          <small>ÉDITION PUY-DE-DÔME</small>
+        </span>
+      </a>
+
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">
+        <span></span><span></span><span></span>
+        <span class="sr-only">Ouvrir le menu</span>
+      </button>
+
+      <nav class="main-nav" id="main-nav" aria-label="Navigation principale">
+        <a href="index.html">Accueil</a>
+        <a class="active" href="editions.html" aria-current="page">Nos éditions</a>
+        <a href="concept.html">Le concept</a>
+        <a href="membres.html">Les membres</a>
+        <a href="galerie.html">Galerie</a>
+        <a href="partenaires.html">Partenaires</a>
+        <a href="inscription.html">Nous rejoindre</a>
+        <a href="../contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenu">
+    <!-- Bandeau partenaires -->
+    <section class="partner-strip" aria-label="Nos partenaires">
+      <div class="partner-track">
+        <a class="partner-logo" href="https://ontitouch.fr" target="_blank" rel="noopener noreferrer">
+          <img src="images/partenaires/ontitouch.png" alt="Logo Ontitouch">
+        </a>
+
+        <a class="partner-cta" href="partenaires.html">
+          <span class="plus-icon" aria-hidden="true">+</span>
+          <span>
+            <strong>Devenir partenaire</strong>
+            <small>Construisons des projets ensemble</small>
+          </span>
+        </a>
+
+        <a class="partner-logo partner-repeat" href="https://ontitouch.fr" target="_blank" rel="noopener noreferrer" aria-hidden="true" tabindex="-1">
+          <img src="images/partenaires/ontitouch.png" alt="">
+        </a>
+
+        <a class="partner-cta partner-repeat" href="partenaires.html" aria-hidden="true" tabindex="-1">
+          <span class="plus-icon" aria-hidden="true">+</span>
+          <span>
+            <strong>Devenir partenaire</strong>
+            <small>Construisons des projets ensemble</small>
+          </span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Grand bandeau d'introduction -->
+    <section class="editions-hero">
+      <div class="editions-hero-inner">
+        <div>
+          <span class="editions-eyebrow">NOTRE TERRITOIRE · ÉDITION 63</span>
+
+          <h1>
+            Le Puy-de-Dôme,<br>
+            <span>notre terrain.</span>
+          </h1>
+
+          <p class="editions-hero-description">
+            Des villes aux villages, ACJ raconte les histoires, les initiatives
+            et les projets qui font vivre notre territoire. Explore le
+            Puy-de-Dôme et découvre notre ancrage local grâce à la carte interactive.
+          </p>
+
+          <div class="editions-tags">
+            <span class="editions-tag"><strong>01</strong> Un territoire</span>
+            <span class="editions-tag"><strong>02</strong> Des histoires</span>
+            <span class="editions-tag"><strong>03</strong> Des jeunes engagés</span>
+          </div>
+        </div>
+
+        <div class="editions-hero-visual" aria-label="Identité visuelle ACJ">
+          <div class="editions-orbit"></div>
+          <div class="editions-logo-stage">
+            <img src="images/logo.png" alt="Logo Auvergn' Connect Jeunes">
+          </div>
+          <span class="editions-floating-label top">MÉDIA JEUNESSE</span>
+          <span class="editions-floating-label bottom">PUY-DE-DÔME · 63</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Carte interactive -->
+    <section class="map-section">
+      <div class="map-section-inner">
+        <div class="map-section-heading">
+          <span class="eyebrow">EXPLORER LE TERRITOIRE</span>
+          <h2>Notre édition au cœur du <span>63.</span></h2>
+          <p>
+            Explore le département et localise le siège social d'Auvergn'
+            Connect Jeunes. Clique sur le territoire ou sur le marqueur pour
+            découvrir les informations.
+          </p>
+        </div>
+
+        <div class="map-layout">
+          <div class="map-panel">
+            <div id="puy-de-dome-map" role="application" aria-label="Carte interactive du Puy-de-Dôme"></div>
+
+            <div class="map-legend">
+              <span class="legend-item">
+                <span class="legend-dot" style="background:#8444B1"></span>
+                Département du Puy-de-Dôme
+              </span>
+              <span class="legend-item">
+                <span class="legend-dot" style="background:#8DBB52"></span>
+                Siège social ACJ
+              </span>
+            </div>
+
+            <div id="map-status" class="map-status" aria-live="polite">
+              Chargement de la carte interactive…
+            </div>
+          </div>
+
+          <aside class="map-sidebar">
+            <article class="map-info-card">
+              <span class="card-eyebrow">ÉDITION LOCALE ACTIVE</span>
+              <span class="map-number">63</span>
+              <h3>Le Puy-de-Dôme, notre terrain.</h3>
+              <p>
+                Une édition locale pour raconter les initiatives, les lieux,
+                les associations et les personnes qui font vivre le département.
+              </p>
+              <a href="index.html">Découvrir l'édition ↗</a>
+            </article>
+
+            <article class="map-info-card">
+              <span class="card-eyebrow">SIÈGE SOCIAL</span>
+              <h3>Où nous trouver ?</h3>
+              <address>
+                39 Rue de la Sioule<br>
+                63800 Cournon-d'Auvergne<br>
+                France
+              </address>
+              <a href="https://www.google.com/maps/search/?api=1&query=39%20Rue%20de%20la%20Sioule%2C%2063800%20Cournon-d%27Auvergne" target="_blank" rel="noopener noreferrer">
+                Ouvrir dans Google Maps ↗
+              </a>
+            </article>
+
+            <article class="map-info-card">
+              <span class="card-eyebrow">UNE IDÉE DE REPORTAGE ?</span>
+              <h3>Fais-nous découvrir ton territoire.</h3>
+              <p>
+                Un projet local, une initiative de jeunes ou une histoire
+                à raconter ? Propose-nous un sujet.
+              </p>
+              <a href="../contact.html">Nous contacter ↗</a>
+            </article>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- Appel à participation -->
+    <section class="editions-cta">
+      <div class="editions-cta-copy">
+        <span class="eyebrow">ET SI TU PARTICIPAIS ?</span>
+        <h2>Ton regard a <span>sa place.</span></h2>
+        <p>
+          Tu habites dans le Puy-de-Dôme et tu souhaites participer à des
+          projets audiovisuels, proposer une idée ou découvrir les coulisses
+          d'un média jeunesse ? Rejoins l'aventure ACJ.
+        </p>
+        <a href="inscription.html">Découvrir comment nous rejoindre ↗</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Pied de page -->
+  <footer class="site-footer">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <a class="brand footer-brand-link" href="index.html">
+          <img src="images/logo.png" alt="Logo Auvergn' Connect Jeunes">
+          <span class="brand-text">
+            <strong>ACJ</strong>
+            <small>ÉDITION PUY-DE-DÔME</small>
+          </span>
+        </a>
+        <p>Un média créé par et pour des jeunes.</p>
+      </div>
+
+      <div class="footer-column">
+        <h2>Explorer</h2>
+        <a href="concept.html">Le concept</a>
+        <a href="editions.html">Nos éditions</a>
+        <a href="galerie.html">Galerie photo</a>
+        <a href="partenaires.html">Partenaires</a>
+      </div>
+
+      <div class="footer-column">
+        <h2>Participer</h2>
+        <a href="membres.html">Les membres</a>
+        <a href="inscription.html">Nous rejoindre</a>
+        <a href="../contact.html">Nous contacter</a>
+      </div>
+
+      <div class="footer-column">
+        <h2>Suivre ACJ</h2>
+        <a href="https://www.instagram.com/auvergn_connect_jeunes/" target="_blank" rel="noopener noreferrer">Instagram ↗</a>
+        <a href="https://www.tiktok.com/@auvergn_connect_jeunes" target="_blank" rel="noopener noreferrer">TikTok ↗</a>
+        <a href="https://www.youtube.com/@auvergn_connect_Jeune" target="_blank" rel="noopener noreferrer">YouTube ↗</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© <span id="current-year"></span> Auvergn' Connect Jeunes</span>
+      <div class="footer-legal">
+        <a href="../mentions-legales.html">Mentions légales</a>
+        <a href="../confidentialite.html">Confidentialité</a>
+        <a href="../cookies.html">Cookies</a>
+        <button type="button" id="open-cookie-settings">Gérer mes cookies</button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bandeau cookies -->
+  <section class="cookie-banner" id="cookie-banner" hidden aria-label="Préférences de cookies">
+    <div class="cookie-banner-copy">
+      <strong>Vos préférences de confidentialité</strong>
+      <p>
+        Ce site utilise le stockage local pour mémoriser vos choix.
+        Les cookies non essentiels restent désactivés tant qu'ils ne sont pas acceptés.
+      </p>
+    </div>
+    <div class="cookie-banner-actions">
+      <button type="button" class="cookie-button cookie-accept" id="accept-cookies">Tout accepter</button>
+      <button type="button" class="cookie-button" id="refuse-cookies">Tout refuser</button>
+      <button type="button" class="cookie-button cookie-customize" id="customize-cookies">Personnaliser</button>
+    </div>
+  </section>
+
+  <!-- Fenêtre de paramètres des cookies -->
+  <div class="cookie-modal" id="cookie-modal" hidden>
+    <div class="cookie-modal-backdrop" data-close-cookie-modal></div>
+
+    <section class="cookie-modal-panel" role="dialog" aria-modal="true" aria-labelledby="cookie-modal-title">
+      <button class="cookie-close" type="button" id="close-cookie-modal" aria-label="Fermer">×</button>
+      <span class="eyebrow">VOS CHOIX</span>
+      <h2 id="cookie-modal-title">Paramètres de confidentialité</h2>
+      <p>
+        Les cookies nécessaires au fonctionnement du site ne peuvent pas être
+        désactivés. Les catégories facultatives sont désactivées par défaut.
+      </p>
+
+      <div class="cookie-option">
+        <div>
+          <strong>Nécessaires</strong>
+          <small>Fonctionnement et mémorisation des préférences.</small>
+        </div>
+        <span class="cookie-always-on">Toujours actifs</span>
+      </div>
+
+      <label class="cookie-option" for="analytics-cookies">
+        <span>
+          <strong>Mesure d'audience</strong>
+          <small>Autoriser d'éventuels outils statistiques.</small>
+        </span>
+        <input type="checkbox" id="analytics-cookies">
+      </label>
+
+      <label class="cookie-option" for="marketing-cookies">
+        <span>
+          <strong>Contenus externes</strong>
+          <small>Autoriser d'éventuels contenus ou intégrations facultatifs.</small>
+        </span>
+        <input type="checkbox" id="marketing-cookies">
+      </label>
+
+      <div class="cookie-modal-actions">
+        <button type="button" class="cookie-button cookie-accept" id="save-cookie-settings">Enregistrer mes choix</button>
+        <button type="button" class="cookie-button" id="cancel-cookie-settings">Annuler</button>
+      </div>
+    </section>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/puy-de-dome.js"></script>
+
+  <script>
+    /* Carte du département */
+    (async function () {
+      const status = document.getElementById("map-status");
+
+      if (typeof L === "undefined") {
+        status.textContent = "La carte nécessite une connexion Internet pour charger Leaflet.";
+        return;
+      }
+
+      const map = L.map("puy-de-dome-map", {
+        scrollWheelZoom: false
+      });
+
+      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(map);
+
+      map.setView([45.75, 3.08], 9);
+
+      try {
+        status.textContent = "Chargement du contour du département…";
+
+        const response = await fetch(
+          "https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/departements-version-simplifiee.geojson"
+        );
+
+        if (!response.ok) throw new Error("Impossible de récupérer le contour.");
+
+        const geojson = await response.json();
+
+        const department = geojson.features.find(function (feature) {
+          const properties = feature.properties || {};
+          return String(properties.code || properties.code_dept || "") === "63";
+        });
+
+        if (!department) throw new Error("Contour du département introuvable.");
+
+        const departmentLayer = L.geoJSON(department, {
+          style: {
+            color: "#8DBB52",
+            weight: 3,
+            opacity: 1,
+            fillColor: "#8444B1",
+            fillOpacity: 0.32
+          },
+          onEachFeature: function (feature, layer) {
+            layer.bindPopup(
+              '<div class="acj-popup-title">Puy-de-Dôme · 63</div>' +
+              "Territoire de l'édition locale d'Auvergn' Connect Jeunes."
+            );
+
+            layer.on("mouseover", function () {
+              layer.setStyle({ weight: 4, fillOpacity: 0.48 });
+            });
+
+            layer.on("mouseout", function () {
+              departmentLayer.resetStyle(layer);
+            });
+          }
+        }).addTo(map);
+
+        map.fitBounds(departmentLayer.getBounds(), { padding: [20, 20] });
+
+        const icon = L.divIcon({
+          className: "",
+          html: '<div style="width:36px;height:36px;display:flex;align-items:center;justify-content:center;border:3px solid #8DBB52;border-radius:50%;background:#0A0927;color:#8DBB52;font-weight:900;font-size:17px;box-shadow:0 2px 12px rgba(0,0,0,.45)">A</div>',
+          iconSize: [36, 36],
+          iconAnchor: [18, 18],
+          popupAnchor: [0, -18]
+        });
+
+        const marker = L.marker([45.7415, 3.1965], {
+          icon: icon,
+          title: "Siège social d'ACJ"
+        }).addTo(map);
+
+        marker.bindPopup(
+          '<div class="acj-popup-title">Siège social d’ACJ</div>' +
+          "39 Rue de la Sioule<br>63800 Cournon-d'Auvergne<br>" +
+          '<a href="https://www.google.com/maps/search/?api=1&query=39%20Rue%20de%20la%20Sioule%2C%2063800%20Cournon-d%27Auvergne" target="_blank" rel="noopener noreferrer">Localiser le siège ↗</a>'
+        );
+
+        status.textContent = "Carte chargée : clique sur le département ou sur le marqueur A pour plus d'informations.";
+      } catch (error) {
+        console.error(error);
+        status.innerHTML =
+          'Le contour du département n’a pas pu être chargé. ' +
+          '<a href="https://www.openstreetmap.org/#map=9/45.75/3.08" target="_blank" rel="noopener noreferrer">Consulter OpenStreetMap ↗</a>';
+      }
+
+      setTimeout(function () {
+        map.invalidateSize();
+      }, 250);
+    })();
+  </script>
+
+  <script>
+    /* Préférences de confidentialité */
+    (() => {
+      const key = "acj_puy_de_dome_cookie_preferences";
+      const banner = document.getElementById("cookie-banner");
+      const modal = document.getElementById("cookie-modal");
+      const analytics = document.getElementById("analytics-cookies");
+      const marketing = document.getElementById("marketing-cookies");
+
+      const readPreferences = () => {
+        try {
+          return JSON.parse(localStorage.getItem(key));
+        } catch {
+          return null;
+        }
+      };
+
+      const savePreferences = (preferences) => {
+        localStorage.setItem(key, JSON.stringify({
+          necessary: true,
+          analytics: Boolean(preferences.analytics),
+          marketing: Boolean(preferences.marketing),
+          savedAt: new Date().toISOString()
+        }));
+        banner.hidden = true;
+        modal.hidden = true;
+      };
+
+      const openModal = () => {
+        const preferences = readPreferences();
+        analytics.checked = Boolean(preferences && preferences.analytics);
+        marketing.checked = Boolean(preferences && preferences.marketing);
+        modal.hidden = false;
+      };
+
+      document.getElementById("accept-cookies").addEventListener("click", () => {
+        savePreferences({ analytics: true, marketing: true });
+      });
+
+      document.getElementById("refuse-cookies").addEventListener("click", () => {
+        savePreferences({ analytics: false, marketing: false });
+      });
+
+      document.getElementById("customize-cookies").addEventListener("click", openModal);
+      document.getElementById("open-cookie-settings").addEventListener("click", openModal);
+
+      document.getElementById("close-cookie-modal").addEventListener("click", () => {
+        modal.hidden = true;
+      });
+
+      document.getElementById("cancel-cookie-settings").addEventListener("click", () => {
+        modal.hidden = true;
+      });
+
+      document.getElementById("save-cookie-settings").addEventListener("click", () => {
+        savePreferences({
+          analytics: analytics.checked,
+          marketing: marketing.checked
+        });
+      });
+
+      modal.querySelector("[data-close-cookie-modal]").addEventListener("click", () => {
+        modal.hidden = true;
+      });
+
+      if (!readPreferences()) banner.hidden = false;
+
+      document.getElementById("current-year").textContent = new Date().getFullYear();
+    })();
+  </script>
+</body>
+</html>

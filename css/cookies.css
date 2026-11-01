@@ -1,0 +1,208 @@
+
+/* =========================================
+   ACJ — Bannière de consentement aux cookies
+   ========================================= */
+
+#cookie-banner,
+#cookie-settings {
+  box-sizing: border-box;
+  position: fixed;
+  z-index: 99999;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  width: min(620px, calc(100% - 32px));
+  padding: 28px;
+  color: #f8f7ff;
+  background: linear-gradient(145deg, #171332, #0A0927 75%);
+  border: 1px solid rgb(132 68 177 / 65%);
+  border-radius: 22px;
+  box-shadow: 0 24px 80px rgb(0 0 0 / 45%);
+  font-family: inherit;
+  animation: acj-cookie-appear .35s ease-out;
+}
+
+#cookie-banner *,
+#cookie-settings * {
+  box-sizing: border-box;
+}
+
+#cookie-banner[hidden],
+#cookie-settings[hidden],
+[data-external-embed][hidden],
+[data-external-placeholder][hidden] {
+  display: none !important;
+}
+
+#cookie-banner::before {
+  content: "";
+  display: block;
+  width: 54px;
+  height: 4px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #8444B1, #8DBB52);
+}
+
+#cookie-banner h2,
+#cookie-settings h2 {
+  margin: 0 0 12px;
+  color: #fff;
+  font-size: clamp(1.35rem, 4vw, 1.8rem);
+  line-height: 1.25;
+  letter-spacing: -.5px;
+}
+
+#cookie-banner p,
+#cookie-settings p {
+  margin: 0 0 18px;
+  color: #c9c6dd;
+  font-size: .95rem;
+  line-height: 1.7;
+}
+
+#cookie-banner a,
+#cookie-settings a {
+  color: #bfa1ff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.cookie-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+#cookie-banner .cookie-actions button,
+#cookie-settings .cookie-actions button {
+  flex: 1 1 150px;
+  min-height: 46px;
+  padding: 12px 16px;
+  border: 1px solid #494365;
+  border-radius: 11px;
+  color: #fff;
+  background: #211c40;
+  font: inherit;
+  font-size: .92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .2s ease, border-color .2s ease,
+    transform .2s ease;
+}
+
+#cookie-banner .cookie-actions button:hover,
+#cookie-settings .cookie-actions button:hover {
+  border-color: #b58ae2;
+  background: #302653;
+  transform: translateY(-1px);
+}
+
+#cookie-banner #cookie-accept {
+  color: #fff;
+  background: linear-gradient(110deg, #8444B1, #6733a0);
+  border-color: #8444B1;
+}
+
+#cookie-banner #cookie-accept:hover {
+  background: linear-gradient(110deg, #9857c5, #7942b1);
+}
+
+#cookie-banner #cookie-refuse {
+  background: transparent;
+}
+
+#cookie-banner #cookie-customize {
+  flex-basis: 100%;
+  color: #d8c7f5;
+  background: transparent;
+  border-color: transparent;
+}
+
+#cookie-settings label {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 16px 0;
+  padding: 14px;
+  color: #f0edff;
+  background: rgb(255 255 255 / 4%);
+  border: 1px solid rgb(255 255 255 / 9%);
+  border-radius: 12px;
+  line-height: 1.5;
+}
+
+#cookie-settings input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  accent-color: #8444B1;
+}
+
+#cookie-manage {
+  position: fixed;
+  z-index: 99998;
+  left: 16px;
+  bottom: 16px;
+  max-width: calc(100% - 32px);
+  padding: 11px 16px;
+  color: #fff;
+  background: #171332;
+  border: 1px solid #8444B1;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgb(0 0 0 / 20%);
+  font: inherit;
+  font-size: .85rem;
+  cursor: pointer;
+  transition: background .2s ease;
+}
+
+#cookie-manage:hover {
+  background: #302653;
+}
+
+#cookie-banner button:focus-visible,
+#cookie-settings button:focus-visible,
+#cookie-manage:focus-visible {
+  outline: 3px solid #8DBB52;
+  outline-offset: 3px;
+}
+
+@keyframes acj-cookie-appear {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 12px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@media (max-width: 520px) {
+  #cookie-banner,
+  #cookie-settings {
+    bottom: 10px;
+    width: calc(100% - 20px);
+    padding: 22px;
+    border-radius: 18px;
+  }
+
+  #cookie-banner .cookie-actions button,
+  #cookie-settings .cookie-actions button {
+    flex-basis: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #cookie-banner,
+  #cookie-settings,
+  #cookie-manage,
+  #cookie-banner button,
+  #cookie-settings button {
+    animation: none;
+    transition: none;
+  }
+}
